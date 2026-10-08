@@ -3,6 +3,7 @@ import { SectionHeading } from "./ui/section-heading";
 import { Reveal } from "./ui/reveal";
 import { Tilt3D } from "./ui/tilt-3d";
 import { CountUp } from "./ui/count-up";
+import { MagneticButton } from "./ui/magnetic-button";
 import profile from "@/assets/company-profile.pdf.asset.json";
 
 export function ProjectHighlights() {
@@ -39,14 +40,15 @@ export function ProjectHighlights() {
 
       <Reveal delay={300}>
         <div className="mt-12 flex justify-center">
-          <a
+          <MagneticButton
             href={profile.url}
             target="_blank"
             rel="noopener"
-            className="btn-3d inline-flex items-center justify-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold tracking-wide text-primary-foreground shadow-[var(--shadow-glow)] transition-[transform,filter] duration-300 hover:brightness-110"
+            className="px-7 py-3.5"
+            ariaLabel="Download company profile"
           >
             Download Company Profile
-          </a>
+          </MagneticButton>
         </div>
       </Reveal>
     </section>

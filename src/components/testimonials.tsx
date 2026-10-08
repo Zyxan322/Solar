@@ -18,10 +18,7 @@ export function Testimonials() {
 
   useEffect(() => {
     if (reduced) return;
-    const t = setInterval(
-      () => setIndex((i) => (i + 1) % testimonials.length),
-      7000,
-    );
+    const t = setInterval(() => setIndex((i) => (i + 1) % testimonials.length), 7000);
     return () => clearInterval(t);
   }, [reduced]);
 
@@ -30,20 +27,19 @@ export function Testimonials() {
       <SectionHeading eyebrow="Testimonials" title="What Our Clients Say" />
 
       <div className="mx-auto mt-16 max-w-5xl px-5 lg:px-8">
-        <div className="relative h-[360px] [perspective:1400px] sm:h-[300px]">
+        <div className="relative h-[360px] sm:h-[300px]">
           {testimonials.map((t, i) => {
-            const offset =
-              (i - index + testimonials.length) % testimonials.length;
+            const offset = (i - index + testimonials.length) % testimonials.length;
             const depth = offset > 1 ? offset - testimonials.length : offset;
             return (
               <figure
                 key={t.name}
                 className={cn(
-                  "glass absolute inset-x-0 top-0 rounded-3xl p-8 transition-all duration-[900ms] [transition-timing-function:var(--ease-cinema)] sm:p-12",
+                  "glass absolute inset-x-0 top-0 rounded-3xl p-8 transition-[transform,opacity] duration-300 ease-out sm:p-12",
                   depth === 0 ? "z-20" : "z-10",
                 )}
                 style={{
-                  transform: `translate3d(0, ${Math.abs(depth) * 26}px, ${-Math.abs(depth) * 140}px) rotateX(${depth * 4}deg) scale(${1 - Math.abs(depth) * 0.06})`,
+                  transform: `translateY(${Math.abs(depth) * 8}px) scale(${1 - Math.abs(depth) * 0.015})`,
                   opacity: Math.abs(depth) > 1 ? 0 : 1 - Math.abs(depth) * 0.55,
                 }}
               >
@@ -60,9 +56,7 @@ export function Testimonials() {
                   </span>
                   <span>
                     <span className="block text-sm font-semibold">{t.name}</span>
-                    <span className="block text-xs text-muted-foreground">
-                      {t.role}
-                    </span>
+                    <span className="block text-xs text-muted-foreground">{t.role}</span>
                   </span>
                 </figcaption>
               </figure>
@@ -78,7 +72,7 @@ export function Testimonials() {
               onClick={() => setIndex(i)}
               aria-label={`Show testimonial from ${t.name}`}
               className={cn(
-                "h-[3px] rounded-full transition-all duration-500",
+                "h-[3px] rounded-full transition-[width,background-color] duration-250 ease-out",
                 i === index ? "w-10 bg-primary" : "w-5 bg-foreground/25",
               )}
             />
@@ -90,7 +84,7 @@ export function Testimonials() {
         {["Based on Google Reviews", "Based on Yelp Reviews"].map((label) => (
           <div
             key={label}
-            className="glass glow-border rounded-2xl px-6 py-7 text-center transition-all duration-500 [transition-timing-function:var(--ease-cinema)] hover:border-primary/40 hover:shadow-[var(--shadow-glow)] hover:[transform:perspective(900px)_rotateX(8deg)_translateZ(24px)]"
+            className="glass glow-border rounded-2xl px-6 py-7 text-center transition-[border-color,box-shadow] duration-250 ease-out hover:border-primary/40 hover:shadow-[var(--shadow-elegant)]"
           >
             <Stars />
             <p className="mt-3 text-sm text-muted-foreground">{label}</p>

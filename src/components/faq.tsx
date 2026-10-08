@@ -1,11 +1,6 @@
 import { SectionHeading } from "./ui/section-heading";
 import { Reveal } from "./ui/reveal";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "./ui/accordion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
 
 export const faqs = [
   {
@@ -49,7 +44,7 @@ export function Faq() {
             <Reveal key={item.q} delay={i * 70}>
               <AccordionItem
                 value={item.q}
-                className="glass hover-lift rounded-2xl border border-border px-6 transition-colors duration-500 hover:border-primary/40"
+                className="glass hover-lift rounded-2xl border border-border px-6 transition-colors duration-250 hover:border-primary/40"
               >
                 <AccordionTrigger className="py-5 text-left font-display text-base font-semibold hover:no-underline sm:text-lg">
                   {item.q}

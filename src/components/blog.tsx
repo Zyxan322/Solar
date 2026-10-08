@@ -16,16 +16,14 @@ const posts = [
   },
   {
     title: "Net metering explained for homeowners",
-    excerpt:
-      "What exporting surplus generation means for your monthly bill and payback period.",
+    excerpt: "What exporting surplus generation means for your monthly bill and payback period.",
     image: heroCity,
     alt: "Rooftop solar panels overlooking a city skyline",
     tag: "Savings",
   },
   {
     title: "Hybrid inverters vs. string inverters",
-    excerpt:
-      "Choosing the right conversion strategy when battery storage is on your roadmap.",
+    excerpt: "Choosing the right conversion strategy when battery storage is on your roadmap.",
     image: serviceInverter,
     alt: "Hybrid solar inverter mounted on a wall",
     tag: "Technology",
@@ -35,10 +33,7 @@ const posts = [
 export function Blog() {
   return (
     <section id="blog" className="relative py-24 lg:py-32">
-      <SectionHeading
-        eyebrow="Insights"
-        title="Solar Knowledge from Our Engineers"
-      />
+      <SectionHeading eyebrow="Insights" title="Solar Knowledge from Our Engineers" />
       <div className="mx-auto mt-14 grid max-w-7xl gap-6 px-5 md:grid-cols-3 lg:px-8">
         {posts.map((post, i) => (
           <Reveal key={post.title} delay={i * 110}>
@@ -49,7 +44,7 @@ export function Blog() {
                     src={post.image}
                     alt={post.alt}
                     loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-[1200ms] [transition-timing-function:var(--ease-cinema)] group-hover:scale-110"
+                    className="h-full w-full object-cover transition-transform duration-250 ease-out group-hover:scale-[1.02]"
                   />
                 </div>
                 <div className="p-6" style={{ transform: "translateZ(40px)" }}>

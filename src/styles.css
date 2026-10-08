@@ -163,11 +163,11 @@
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     opacity: 0;
-    transition: opacity 0.5s var(--ease-cinema);
+    transition: opacity 0.25s ease-out;
     pointer-events: none;
   }
   &:hover::after {
-    opacity: 1;
+    opacity: 0.3;
   }
 }
 
@@ -198,7 +198,7 @@
     transform: scaleX(0);
     transform-origin: right;
     background: var(--gradient-primary);
-    transition: transform 0.45s var(--ease-cinema);
+    transition: transform 0.25s ease-out;
   }
   &:hover::after {
     transform: scaleX(1);
@@ -350,10 +350,10 @@
 
 @utility hover-lift {
   transition:
-    transform 0.5s var(--ease-cinema),
-    box-shadow 0.5s var(--ease-cinema);
+    transform 0.25s ease-out,
+    box-shadow 0.25s ease-out;
   &:hover {
-    transform: translateY(-6px);
+    transform: translateY(-2px);
     box-shadow: var(--shadow-elegant);
   }
 }
@@ -365,17 +365,15 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      color-mix(in oklab, var(--primary) 22%, transparent),
-      transparent
-    );
-    transform: translateX(-120%) skewX(-18deg);
+    background: color-mix(in oklab, var(--primary) 5%, transparent);
     pointer-events: none;
   }
+  &::before {
+    opacity: 0;
+    transition: opacity 0.25s ease-out;
+  }
   &:hover::before {
-    animation: shine-sweep 0.9s var(--ease-cinema);
+    opacity: 0.12;
   }
 }
 
@@ -450,23 +448,14 @@
 }
 
 @utility card-3d {
-  transform-style: preserve-3d;
   transition:
-    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.7s var(--ease-cinema),
-    border-color 0.6s var(--ease-cinema);
-  will-change: transform;
+    transform 0.25s ease-out,
+    box-shadow 0.25s ease-out,
+    border-color 0.25s ease-out;
   &:hover {
-    transform: perspective(1100px) rotateX(7deg) rotateY(-8deg)
-      translate3d(0, -10px, 34px) scale(1.035);
-    box-shadow:
-      var(--shadow-glow),
-      0 40px 70px -40px color-mix(in oklab, var(--primary) 60%, transparent);
-    border-color: color-mix(in oklab, var(--primary) 55%, transparent);
-  }
-  &:active {
-    transform: perspective(1100px) translate3d(0, -2px, 8px) scale(1.005);
-    transition-duration: 0.18s;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-elegant);
+    border-color: color-mix(in oklab, var(--primary) 28%, var(--border));
   }
 }
 
@@ -610,29 +599,18 @@
 /* ---------- premium 3D micro-interactions ---------- */
 
 @utility btn-3d {
-  transform-style: preserve-3d;
-  box-shadow:
-    0 1px 0 0 oklch(1 0 0 / 25%) inset,
-    0 -2px 0 0 oklch(0 0 0 / 18%) inset,
-    0 10px 22px -12px oklch(0 0 0 / 55%);
+  box-shadow: 0 1px 8px -4px oklch(0 0 0 / 40%);
   transition:
-    transform 0.45s var(--ease-cinema),
-    box-shadow 0.45s var(--ease-cinema),
-    filter 0.45s var(--ease-cinema);
+    transform 0.25s ease-out,
+    box-shadow 0.25s ease-out,
+    background-color 0.25s ease-out,
+    border-color 0.25s ease-out,
+    opacity 0.25s ease-out;
   &:hover {
-    transform: translateY(-3px) perspective(700px) rotateX(6deg);
-    box-shadow:
-      0 1px 0 0 oklch(1 0 0 / 35%) inset,
-      0 -2px 0 0 oklch(0 0 0 / 22%) inset,
-      var(--shadow-glow),
-      0 22px 44px -18px color-mix(in oklab, var(--primary) 55%, transparent);
-    filter: brightness(1.06);
+    box-shadow: 0 5px 14px -8px oklch(0 0 0 / 50%);
   }
   &:active {
-    transform: translateY(1px) scale(0.985);
-    box-shadow:
-      0 2px 0 0 oklch(0 0 0 / 22%) inset,
-      0 6px 14px -10px oklch(0 0 0 / 50%);
+    box-shadow: 0 1px 5px -4px oklch(0 0 0 / 50%);
   }
 }
 

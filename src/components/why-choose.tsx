@@ -81,15 +81,10 @@ export function WhyChoose() {
               <Tilt3D intensity={12} lift={20} className="h-full">
                 <div className="glass glow-border card-3d group relative h-full overflow-hidden rounded-2xl p-7">
                   <span
-                    className="grid h-12 w-12 place-items-center rounded-xl border border-border bg-background/40 text-primary transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6"
+                    className="grid h-12 w-12 place-items-center rounded-xl border border-border bg-background/40 text-primary transition-colors duration-250 group-hover:border-primary/40"
                     style={{ transform: "translateZ(38px)" }}
                   >
-                    <svg
-                      viewBox="0 0 24 24"
-                      className="h-6 w-6"
-                      aria-hidden
-                      {...stroke}
-                    >
+                    <svg viewBox="0 0 24 24" className="h-6 w-6" aria-hidden {...stroke}>
                       {f.icon}
                     </svg>
                   </span>

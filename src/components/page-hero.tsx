@@ -15,14 +15,7 @@ type Props = {
   highlights?: string[];
 };
 
-export function PageHero({
-  eyebrow,
-  title,
-  description,
-  image,
-  imageAlt,
-  highlights = [],
-}: Props) {
+export function PageHero({ eyebrow, title, description, image, imageAlt, highlights = [] }: Props) {
   const parallax = usePointerParallax();
   const reduced = usePrefersReducedMotion();
   const [loaded, setLoaded] = useState(false);
@@ -93,7 +86,7 @@ export function PageHero({
       <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-12 px-5 pt-40 pb-24 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
         <div
           className={cn(
-            "max-w-2xl transition-all duration-[1100ms] [transition-timing-function:var(--ease-cinema)]",
+            "max-w-2xl transition-all duration-500 ease-out",
             loaded ? "translate-y-0 opacity-100 blur-0" : "translate-y-8 opacity-0 blur-md",
           )}
           style={{
@@ -106,7 +99,7 @@ export function PageHero({
           </span>
           <h1
             className={cn(
-              "mt-7 text-[2.4rem] leading-[1.04] font-semibold tracking-[-0.03em] text-balance transition-all duration-[1200ms] [transition-timing-function:var(--ease-cinema)] sm:text-5xl lg:text-6xl",
+              "mt-7 text-[2.4rem] leading-[1.04] font-semibold tracking-[-0.03em] text-balance transition-all duration-500 ease-out sm:text-5xl lg:text-6xl",
               loaded ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0",
             )}
             style={{ transitionDelay: "120ms" }}
@@ -115,7 +108,7 @@ export function PageHero({
           </h1>
           <p
             className={cn(
-              "mt-6 max-w-xl text-base leading-relaxed text-muted-foreground transition-all duration-[1200ms] [transition-timing-function:var(--ease-cinema)] sm:text-lg",
+              "mt-6 max-w-xl text-base leading-relaxed text-muted-foreground transition-all duration-500 ease-out sm:text-lg",
               loaded ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0",
             )}
             style={{ transitionDelay: "240ms" }}
@@ -139,16 +132,12 @@ export function PageHero({
                   transform: `translate3d(${parallax.x * (30 + i * 18)}px, ${parallax.y * (24 + i * 14)}px, 0)`,
                 }}
               >
-                <div
-                  className="animate-float-slow card-3d glass rounded-2xl px-5 py-4 text-sm font-medium"
-                  style={{ animationDelay: `${i * 1.1}s` }}
-                >
+                <div className="card-3d glass rounded-2xl px-5 py-4 text-sm font-medium">
                   <span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-primary align-middle" />
                   {h}
                 </div>
               </div>
             ))}
-
           </div>
         )}
       </div>

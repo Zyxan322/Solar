@@ -17,7 +17,11 @@ export const company = {
   tagline: "Empowering Your Energy Choices",
   phone: "+92-55-3419847",
   phoneHref: "tel:+92553419847",
+  additionalPhone: "+92 322 5478991",
+  additionalPhoneHref: "tel:+923225478991",
+  whatsappNumber: "+923225478991",
   email: "info@reinventenergies.com",
+  headOfficeAddress: "Plaza #30, Rachna Villas Block, Commercial Zone 1, DHA Gujranwala, Pakistan",
   address: "8 Sutlej Commercial, DC Colony, Gujranwala, Pakistan",
   city: "Gujranwala",
   country: "Pakistan",
@@ -27,6 +31,7 @@ export const navigation = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
   { label: "Products", href: "/products" },
+  { label: "Shop", href: "/shop" },
   { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
@@ -100,7 +105,16 @@ export const services = [
   },
 ];
 
-export const products = [
+export type Product = {
+  name: string;
+  image: string;
+  alt: string;
+  summary: string;
+  specs: string[];
+  price?: number;
+};
+
+export const products: Product[] = [
   {
     name: "Solar Panels",
     image: productPanel,

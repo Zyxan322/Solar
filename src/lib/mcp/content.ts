@@ -10,7 +10,9 @@ export const company = {
   description:
     "Professional solar installation and renewable energy solutions in Gujranwala, Pakistan. Expert installation, high-quality solar products and energy consultation.",
   phone: "+92-55-3419847",
+  additionalPhone: "+92 322 5478991",
   email: "info@reinventenergies.com",
+  headOfficeAddress: "Plaza #30, Rachna Villas Block, Commercial Zone 1, DHA Gujranwala, Pakistan",
   address: "8 Sutlej Commercial, DC Colony, Gujranwala, Pakistan",
   city: "Gujranwala",
   country: "Pakistan",

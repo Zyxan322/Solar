@@ -48,7 +48,6 @@ export function Hero() {
     return () => clearInterval(t);
   }, [reduced, go]);
 
-
   const layer = (depth: number) => ({
     transform: `translate3d(${parallax.x * depth}px, ${parallax.y * depth}px, 0)`,
   });
@@ -68,10 +67,7 @@ export function Hero() {
       }}
     >
       {/* ---------- background layer ---------- */}
-      <div
-        className="absolute inset-[-4%] will-change-transform"
-        style={layer(-18)}
-      >
+      <div className="absolute inset-[-4%] will-change-transform" style={layer(-18)}>
         {heroSlides.map((slide, i) => (
           <img
             key={slide.alt}
@@ -87,8 +83,7 @@ export function Hero() {
             )}
             style={{
               transform: i === index && !reduced ? "scale(1.09)" : "scale(1)",
-              transition:
-                "opacity 1600ms var(--ease-cinema), transform 10000ms linear",
+              transition: "opacity 1600ms var(--ease-cinema), transform 10000ms linear",
             }}
           />
         ))}
@@ -115,10 +110,8 @@ export function Hero() {
       <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-14 px-5 pt-36 pb-32 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
         <div
           className={cn(
-            "max-w-2xl transition-all duration-[1100ms] [transition-timing-function:var(--ease-cinema)]",
-            loaded
-              ? "translate-y-0 opacity-100 blur-0"
-              : "translate-y-8 opacity-0 blur-md",
+            "max-w-2xl transition-all duration-500 ease-out",
+            loaded ? "translate-y-0 opacity-100 blur-0" : "translate-y-8 opacity-0 blur-md",
           )}
           style={layer(10)}
         >
@@ -129,7 +122,7 @@ export function Hero() {
 
           <h1 className="mt-8 text-[2.6rem] leading-[1.02] font-semibold tracking-[-0.035em] text-balance sm:text-6xl lg:text-[4.4rem]">
             <span
-              className="block transition-all duration-[1200ms] [transition-timing-function:var(--ease-cinema)]"
+              className="block transition-all duration-500 ease-out"
               style={{
                 transitionDelay: "120ms",
                 opacity: loaded ? 1 : 0,
@@ -139,7 +132,7 @@ export function Hero() {
               Solar Solutions for a
             </span>
             <span
-              className="text-gradient block transition-all duration-[1200ms] [transition-timing-function:var(--ease-cinema)]"
+              className="text-gradient block transition-all duration-500 ease-out"
               style={{
                 transitionDelay: "240ms",
                 opacity: loaded ? 1 : 0,
@@ -151,20 +144,19 @@ export function Hero() {
           </h1>
 
           <p
-            className="mt-7 max-w-xl text-base leading-relaxed text-muted-foreground transition-all duration-[1100ms] [transition-timing-function:var(--ease-cinema)] sm:text-lg"
+            className="mt-7 max-w-xl text-base leading-relaxed text-muted-foreground transition-all duration-500 ease-out sm:text-lg"
             style={{
               transitionDelay: "380ms",
               opacity: loaded ? 1 : 0,
               transform: loaded ? "none" : "translateY(20px)",
             }}
           >
-            Expert solar installation and high-quality energy solutions designed
-            to reduce costs, improve efficiency, and build a more sustainable
-            future.
+            Expert solar installation and high-quality energy solutions designed to reduce costs,
+            improve efficiency, and build a more sustainable future.
           </p>
 
           <div
-            className="mt-10 flex flex-wrap gap-3 transition-all duration-[1100ms] [transition-timing-function:var(--ease-cinema)]"
+            className="mt-10 flex flex-wrap gap-3 transition-all duration-500 ease-out"
             style={{
               transitionDelay: "500ms",
               opacity: loaded ? 1 : 0,
@@ -185,17 +177,13 @@ export function Hero() {
               transitionDelay: "620ms",
               opacity: loaded ? 1 : 0,
               transform: loaded ? "none" : "translateY(18px)",
-              transition: "all 1100ms var(--ease-cinema)",
+              transition: "all 500ms ease-out",
             }}
           >
             {statistics.map((s) => (
               <div key={s.label}>
                 <p className="font-display text-2xl font-semibold">
-                  <CountUp
-                    value={s.value}
-                    suffix={s.suffix}
-                    suffixClassName="text-primary"
-                  />
+                  <CountUp value={s.value} suffix={s.suffix} suffixClassName="text-primary" />
                 </p>
                 <p className="mt-1 text-[0.7rem] leading-tight tracking-wide text-muted-foreground uppercase">
                   {s.label}
@@ -209,7 +197,7 @@ export function Hero() {
         <div className="relative hidden justify-end lg:flex">
           <div
             className={cn(
-              "relative flex flex-col items-start transition-all duration-[1400ms] [transition-timing-function:var(--ease-cinema)]",
+              "relative flex flex-col items-start transition-all duration-500 ease-out",
               loaded
                 ? "translate-y-0 scale-100 opacity-100 blur-0"
                 : "translate-y-10 scale-95 opacity-0 blur-md",
@@ -222,7 +210,7 @@ export function Hero() {
             {floaters.map((f, i) => (
               <div
                 key={f.label}
-                className="glass animate-bob btn-3d flex items-center gap-3.5 rounded-2xl border border-primary/20 px-5 py-4 shadow-[var(--shadow-elegant)]"
+                className="glass btn-3d flex items-center gap-3.5 rounded-2xl border border-primary/20 px-5 py-4 shadow-[var(--shadow-elegant)]"
                 style={{
                   animationDelay: f.delay,
                   marginLeft: `${i * 34}px`,
@@ -234,9 +222,7 @@ export function Hero() {
                 <span className="grid h-7 w-7 place-items-center rounded-full bg-primary/12 text-primary">
                   <span className="h-1.5 w-1.5 rounded-full bg-primary" />
                 </span>
-                <p className="text-xs font-semibold tracking-wide whitespace-nowrap">
-                  {f.label}
-                </p>
+                <p className="text-xs font-semibold tracking-wide whitespace-nowrap">{f.label}</p>
               </div>
             ))}
           </div>
@@ -260,10 +246,8 @@ export function Hero() {
               onClick={() => setIndex(i)}
               aria-label={`Show slide ${i + 1}`}
               className={cn(
-                "h-[3px] rounded-full transition-all duration-500",
-                i === index
-                  ? "w-10 bg-primary"
-                  : "w-5 bg-foreground/25 hover:bg-foreground/50",
+                "h-[3px] rounded-full transition-[width,background-color] duration-250 ease-out",
+                i === index ? "w-10 bg-primary" : "w-5 bg-foreground/25 hover:bg-foreground/50",
               )}
             />
           ))}

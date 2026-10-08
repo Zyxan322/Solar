@@ -6,7 +6,6 @@ import { Tilt3D } from "./ui/tilt-3d";
 import { MagneticButton } from "./ui/magnetic-button";
 import { CountUp } from "./ui/count-up";
 
-
 /**
  * Indicative sizing model. Figures are estimates for guidance only —
  * a real quote comes from the on-site assessment.
@@ -18,10 +17,7 @@ function estimate(monthlyBill: number, roofFactor: number) {
   const sizeKw = Math.max(1, Math.round((units / (sunHours * 30)) * 10) / 10);
   const monthlySavings = Math.round(monthlyBill * 0.82);
   const systemCost = Math.round(sizeKw * 165000);
-  const paybackYears = Math.max(
-    1,
-    Math.round((systemCost / (monthlySavings * 12)) * 10) / 10,
-  );
+  const paybackYears = Math.max(1, Math.round((systemCost / (monthlySavings * 12)) * 10) / 10);
   const co2 = Math.round(sizeKw * 1.4); // tonnes CO2 avoided per year
   return { sizeKw, monthlySavings, systemCost, paybackYears, co2 };
 }
@@ -110,7 +106,7 @@ export function SavingsCalculator() {
                   type="button"
                   onClick={() => setRoof(o.value)}
                   aria-pressed={roof === o.value}
-                  className={`rounded-xl border px-3 py-3 text-sm font-medium transition-all duration-500 [transition-timing-function:var(--ease-cinema)] hover:-translate-y-1 ${
+                  className={`rounded-xl border px-3 py-3 text-sm font-medium transition-[transform,border-color,background-color,color] duration-250 ease-out hover:-translate-y-0.5 ${
                     roof === o.value
                       ? "border-primary bg-primary/10 text-primary shadow-[var(--shadow-glow)]"
                       : "border-border bg-surface/50 text-muted-foreground"
@@ -122,9 +118,7 @@ export function SavingsCalculator() {
             </div>
 
             <div className="mt-10">
-              <MagneticButton href="/contact">
-                Get an exact quote
-              </MagneticButton>
+              <MagneticButton href="/contact">Get an exact quote</MagneticButton>
             </div>
           </div>
         </Reveal>
@@ -168,8 +162,7 @@ export function SavingsCalculator() {
                 <CountUp value={r.co2 * 45} group duration={900} /> trees.
               </p>
               <p className="relative mt-3 text-xs text-muted-foreground/80">
-                Estimates only, based on average Gujranwala irradiance and
-                indicative tariffs.
+                Estimates only, based on average Gujranwala irradiance and indicative tariffs.
               </p>
             </div>
           </Tilt3D>

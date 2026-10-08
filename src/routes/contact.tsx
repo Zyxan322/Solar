@@ -6,7 +6,7 @@ import { Contact } from "@/components/contact";
 
 const title = "Contact Reinvent Energies | Solar Consultation in Gujranwala";
 const description =
-  "Request a solar consultation. Call +92-55-3419847 or visit 8 Sutlej Commercial, DC Colony, Gujranwala, Pakistan.";
+  "Request a solar consultation. Call +92-55-3419847 or +92 322 5478991, or visit our offices in Gujranwala.";
 
 export const Route = createFileRoute("/contact")({
   component: ContactPage,

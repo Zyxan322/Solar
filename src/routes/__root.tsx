@@ -11,6 +11,8 @@ import { useEffect, type ReactNode } from "react";
 import { useRouterState } from "@tanstack/react-router";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { CartProvider } from "@/components/cart-context";
+import { Toaster } from "@/components/ui/sonner";
 import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
 import favicon from "@/assets/logo.jpg";
 
@@ -139,14 +141,17 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="relative min-h-screen bg-background">
-        <Navbar />
-        <main key={pathname} className="animate-page-enter">
-          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-          <Outlet />
-        </main>
-        <Footer />
-      </div>
+      <CartProvider>
+        <div className="relative min-h-screen bg-background">
+          <Navbar />
+          <main key={pathname} className="animate-page-enter">
+            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+            <Outlet />
+          </main>
+          <Footer />
+          <Toaster />
+        </div>
+      </CartProvider>
     </QueryClientProvider>
   );
 }

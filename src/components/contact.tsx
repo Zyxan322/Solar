@@ -13,7 +13,10 @@ export function Contact() {
   const [sent, setSent] = useState(false);
 
   return (
-    <section id="contact" className="section-dark aurora-green relative overflow-hidden py-24 lg:py-32">
+    <section
+      id="contact"
+      className="section-dark aurora-green relative overflow-hidden py-24 lg:py-32"
+    >
       <SectionHeading
         eyebrow="Contact"
         title="Request a Solar Consultation"
@@ -22,40 +25,37 @@ export function Contact() {
 
       <div className="mx-auto mt-16 grid max-w-7xl gap-8 px-5 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
         <Reveal>
-          <div className="glass glow-border h-full rounded-3xl p-8 transition-transform duration-500 [transition-timing-function:var(--ease-cinema)] hover:[transform:perspective(1100px)_rotateY(3deg)_rotateX(-2deg)_translateZ(20px)]">
-            <h3 className="font-display text-xl font-semibold">
-              Reinvent Energies
-            </h3>
-            <p className="mt-2 text-sm text-muted-foreground">
-              {company.tagline}
-            </p>
+          <div className="glass glow-border card-3d h-full rounded-3xl p-8">
+            <h3 className="font-display text-xl font-semibold">Reinvent Energies</h3>
+            <p className="mt-2 text-sm text-muted-foreground">{company.tagline}</p>
 
             <dl className="mt-8 space-y-6 text-sm">
               <div>
                 <dt className="text-[0.68rem] tracking-[0.2em] text-primary uppercase">
-                  Address
+                  Head Office
                 </dt>
-                <dd className="mt-1.5 text-muted-foreground">
-                  {company.address}
-                </dd>
+                <dd className="mt-1.5 text-muted-foreground">{company.headOfficeAddress}</dd>
               </div>
               <div>
                 <dt className="text-[0.68rem] tracking-[0.2em] text-primary uppercase">
-                  Phone
+                  Sub Office
                 </dt>
+                <dd className="mt-1.5 text-muted-foreground">{company.address}</dd>
+              </div>
+              <div>
+                <dt className="text-[0.68rem] tracking-[0.2em] text-primary uppercase">Phone</dt>
                 <dd className="mt-1.5">
-                  <a
-                    href={company.phoneHref}
-                    className="nav-link text-foreground"
-                  >
+                  <a href={company.phoneHref} className="nav-link text-foreground">
                     {company.phone}
+                  </a>
+                  <br />
+                  <a href={company.additionalPhoneHref} className="nav-link text-foreground">
+                    {company.additionalPhone}
                   </a>
                 </dd>
               </div>
               <div>
-                <dt className="text-[0.68rem] tracking-[0.2em] text-primary uppercase">
-                  Email
-                </dt>
+                <dt className="text-[0.68rem] tracking-[0.2em] text-primary uppercase">Email</dt>
                 <dd className="mt-1.5">
                   <a
                     href={`mailto:${company.email}`}
@@ -91,7 +91,7 @@ export function Contact() {
 
         <Reveal delay={120}>
           <form
-            className="glass glow-border rounded-3xl p-8 shadow-[var(--shadow-elegant)] transition-transform duration-500 [transition-timing-function:var(--ease-cinema)] hover:[transform:perspective(1200px)_rotateX(-2deg)_translateZ(14px)]"
+            className="glass glow-border rounded-3xl p-8 transition-shadow duration-250 hover:shadow-[var(--shadow-elegant)]"
             onSubmit={(e) => {
               e.preventDefault();
               setSent(true);
@@ -99,13 +99,7 @@ export function Contact() {
           >
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="relative">
-                <input
-                  id="name"
-                  name="name"
-                  required
-                  placeholder=" "
-                  className={fieldClass}
-                />
+                <input id="name" name="name" required placeholder=" " className={fieldClass} />
                 <label htmlFor="name" className={labelClass}>
                   Name
                 </label>
@@ -124,13 +118,7 @@ export function Contact() {
                 </label>
               </div>
               <div className="relative">
-                <input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  placeholder=" "
-                  className={fieldClass}
-                />
+                <input id="phone" name="phone" type="tel" placeholder=" " className={fieldClass} />
                 <label htmlFor="phone" className={labelClass}>
                   Phone
                 </label>
@@ -167,13 +155,11 @@ export function Contact() {
             </div>
 
             <div className="mt-7 flex flex-wrap items-center gap-4">
-              <MagneticButton type="submit">
-                Request a Consultation
-              </MagneticButton>
+              <MagneticButton type="submit">Request a Consultation</MagneticButton>
               {sent ? (
                 <p className="text-sm text-primary" role="status">
-                  Thank you — we&apos;ll be in touch shortly. You can also call{" "}
-                  {company.phone}.
+                  Thank you — we&apos;ll be in touch shortly. You can also call {company.phone} or{" "}
+                  {company.additionalPhone}.
                 </p>
               ) : null}
             </div>

@@ -18,8 +18,7 @@ import { CallToAction } from "@/components/call-to-action";
 import { Scroll3D } from "@/components/ui/scroll-3d";
 import { company } from "@/data/site";
 
-const title =
-  "Reinvent Energies | Premium Solar Solutions & Installation in Pakistan";
+const title = "Reinvent Energies | Premium Solar Solutions & Installation in Pakistan";
 const description =
   "Reinvent Energies provides professional solar panel installation, inverter solutions, energy consultation, and renewable energy systems for residential and commercial clients in Pakistan.";
 
@@ -47,16 +46,24 @@ export const Route = createFileRoute("/")({
           "@type": "LocalBusiness",
           name: "Reinvent Energies",
           description,
-          telephone: company.phone,
+          telephone: [company.phone, company.additionalPhone],
           email: company.email,
           slogan: company.tagline,
           areaServed: "Pakistan",
-          address: {
-            "@type": "PostalAddress",
-            streetAddress: "8 Sutlej Commercial, DC Colony",
-            addressLocality: "Gujranwala",
-            addressCountry: "PK",
-          },
+          address: [
+            {
+              "@type": "PostalAddress",
+              streetAddress: "Plaza #30, Rachna Villas Block, Commercial Zone 1, DHA",
+              addressLocality: "Gujranwala",
+              addressCountry: "PK",
+            },
+            {
+              "@type": "PostalAddress",
+              streetAddress: "8 Sutlej Commercial, DC Colony",
+              addressLocality: "Gujranwala",
+              addressCountry: "PK",
+            },
+          ],
         }),
       },
       {
@@ -125,4 +132,3 @@ function Index() {
     </>
   );
 }
-

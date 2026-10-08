@@ -9,9 +9,7 @@ const icons: Record<string, React.ReactNode> = {
     <path d="M14.7 6.3a4 4 0 0 1-5 5L5 16v3h3l4.7-4.7a4 4 0 0 0 5-5l-2.1 2.1-2.1-.6-.6-2.1 2.1-2.1Z" />
   ),
   shield: <path d="M12 3l7 3v6c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6l7-3Z" />,
-  leaf: (
-    <path d="M5 19c0-8 6-13 14-13 0 8-5 14-13 14H5v-1Zm2 0c3-4 6-6 9-7" />
-  ),
+  leaf: <path d="M5 19c0-8 6-13 14-13 0 8-5 14-13 14H5v-1Zm2 0c3-4 6-6 9-7" />,
 };
 
 export function IntroSection() {
@@ -32,9 +30,7 @@ export function IntroSection() {
           />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,color-mix(in_oklab,var(--color-background)_75%,transparent))]" />
           <div className="glass absolute bottom-6 left-6 rounded-2xl px-5 py-4">
-            <p className="font-display text-2xl font-semibold text-primary">
-              Certified crews
-            </p>
+            <p className="font-display text-2xl font-semibold text-primary">Certified crews</p>
             <p className="text-xs text-muted-foreground">
               Residential &amp; commercial installations
             </p>
@@ -54,9 +50,8 @@ export function IntroSection() {
           </Reveal>
           <Reveal delay={140}>
             <p className="mt-5 text-base leading-relaxed text-muted-foreground">
-              From the first consultation to activation day, every system we
-              deliver is engineered around your load profile, your roof and your
-              long-term savings.
+              From the first consultation to activation day, every system we deliver is engineered
+              around your load profile, your roof and your long-term savings.
             </p>
           </Reveal>
 
@@ -65,7 +60,7 @@ export function IntroSection() {
               <Reveal key={item.title} delay={200 + i * 100}>
                 <TiltCard intensity={5} className="p-6">
                   <div className="flex gap-5">
-                    <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl border border-border bg-surface-2/70 text-primary transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6">
+                    <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl border border-border bg-surface-2/70 text-primary transition-colors duration-250 group-hover:border-primary/40">
                       <svg
                         viewBox="0 0 24 24"
                         fill="none"
@@ -80,9 +75,7 @@ export function IntroSection() {
                       </svg>
                     </span>
                     <div className="min-w-0">
-                      <h3 className="font-display text-lg font-semibold">
-                        {item.title}
-                      </h3>
+                      <h3 className="font-display text-lg font-semibold">{item.title}</h3>
                       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                         {item.body}
                       </p>
