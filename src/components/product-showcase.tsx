@@ -7,9 +7,9 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { MagneticButton } from "./ui/magnetic-button";
 import { SectionHeading } from "./ui/section-heading";
 import { Reveal } from "./ui/reveal";
-import { Tilt3D } from "./ui/tilt-3d";
+import { ProductCard } from "./product-card";
 
-export function ProductShowcase({ layout = "carousel" }: { layout?: "carousel" | "grid" }) {
+export function ProductShowcase({ layout = "grid" }: { layout?: "carousel" | "grid" }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [detailQuantity, setDetailQuantity] = useState(1);
@@ -26,15 +26,16 @@ export function ProductShowcase({ layout = "carousel" }: { layout?: "carousel" |
   return (
     <section
       id="products"
-      className="section-dark aurora-green relative overflow-hidden py-24 lg:py-32"
+      className="section-dark relative overflow-hidden !bg-white py-24 text-slate-900 lg:py-32"
     >
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
           <SectionHeading
             align="left"
+            className="[&_h2]:text-slate-900 [&_p]:text-slate-600 [&_span.inline-flex]:border-slate-200 [&_span.inline-flex]:bg-slate-50 [&_span.inline-flex]:text-emerald-700"
             eyebrow="Solar Product Showcase"
             title="Engineered for Better Energy"
-            subtitle="Every component we supply is selected for output, durability and serviceability in Pakistani conditions."
+            subtitle="Every component we supply is selected for output, durability and serviceability in Pakistani conditions. Displayed PKR prices are indicative and may vary with specifications and availability."
           />
           {!isGrid ? (
             <div className="flex gap-2">
@@ -63,65 +64,27 @@ export function ProductShowcase({ layout = "carousel" }: { layout?: "carousel" |
         ref={trackRef}
         className={
           isGrid
-            ? "mx-auto mt-14 grid max-w-7xl gap-6 px-5 pb-6 sm:grid-cols-2 lg:grid-cols-4 lg:px-8"
+            ? "mx-auto mt-12 grid max-w-7xl auto-rows-fr grid-cols-1 gap-4 px-5 pb-6 min-[360px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-5 lg:px-8 xl:grid-cols-5"
             : "mt-14 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-5 pb-6 [scrollbar-width:none] lg:px-8 [&::-webkit-scrollbar]:hidden"
         }
       >
         {products.map((product, i) => (
           <Reveal
             key={product.name}
-            delay={i * 90}
+            delay={isGrid ? (i % 5) * 45 : i * 90}
             className={isGrid ? "h-full" : "w-[82vw] shrink-0 snap-start sm:w-[420px]"}
           >
-            <Tilt3D intensity={12} lift={30} className="h-full">
-              <article className="glass glow-border card-3d group relative h-full overflow-hidden rounded-3xl">
-                <div className="relative aspect-square overflow-hidden">
-                  <img
-                    src={product.image}
-                    alt={product.alt}
-                    width={1008}
-                    height={1008}
-                    loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-250 ease-out group-hover:scale-[1.02]"
-                  />
-                  <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_40%,color-mix(in_oklab,var(--color-background)_90%,transparent))]" />
-                </div>
-                <div className="relative -mt-16 p-7">
-                  <h3 className="font-display text-xl font-semibold">{product.name}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">{product.summary}</p>
-                  <ul className="mt-4 grid gap-2 text-sm text-muted-foreground">
-                    {product.specs.map((spec) => (
-                      <li key={spec} className="flex gap-2">
-                        <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-primary" />
-                        {spec}
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="mt-6 flex gap-2 transition duration-300 [@media(hover:hover)]:translate-y-2 [@media(hover:hover)]:opacity-0 group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setSelectedProduct(product);
-                        setDetailQuantity(1);
-                      }}
-                      className="inline-flex min-h-10 flex-1 items-center justify-center rounded-full border border-border px-3 text-xs font-semibold transition-colors hover:border-primary/50 hover:text-primary sm:text-sm"
-                    >
-                      View Item
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        addItem(product);
-                        toast.success("Added to cart");
-                      }}
-                      className="inline-flex min-h-10 flex-1 items-center justify-center rounded-full bg-primary px-3 text-xs font-semibold text-primary-foreground transition-colors hover:bg-primary/90 sm:text-sm"
-                    >
-                      Add to Cart
-                    </button>
-                  </div>
-                </div>
-              </article>
-            </Tilt3D>
+            <ProductCard
+              product={product}
+              onView={() => {
+                setSelectedProduct(product);
+                setDetailQuantity(1);
+              }}
+              onAdd={() => {
+                addItem(product);
+                toast.success("Added to cart");
+              }}
+            />
           </Reveal>
         ))}
       </div>
@@ -153,7 +116,7 @@ export function ProductShowcase({ layout = "carousel" }: { layout?: "carousel" |
                 <p className="mt-5 font-semibold text-primary">
                   {selectedProduct.price === undefined
                     ? "Price on request"
-                    : formatPrice(selectedProduct.price)}
+                    : `${formatPrice(selectedProduct.price)}${selectedProduct.priceUnit ? ` / ${selectedProduct.priceUnit}` : ""}`}
                 </p>
                 <h3 className="mt-6 text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">
                   Product details

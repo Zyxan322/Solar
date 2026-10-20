@@ -35,7 +35,7 @@ function ProductsPage() {
         highlights={["High-Efficiency Panels", "Hybrid Inverters", "Battery Storage"]}
       />
       <Scroll3D shift={50} rotate={5}>
-        <ProductShowcase />
+        <ProductShowcase layout="grid" />
       </Scroll3D>
       <Scroll3D shift={60} rotate={6}>
         <CallToAction />

@@ -10,6 +10,11 @@ import productPanel from "@/assets/product-panel.jpg";
 import productInverter from "@/assets/product-inverter.jpg";
 import productBattery from "@/assets/product-battery.jpg";
 import productMounting from "@/assets/product-mounting.jpg";
+import dcBreaker20 from "@/assets/products/WhatsApp Image 2026-10-20 at 3.12.02 PM (1).jpeg";
+import dcBreaker25 from "@/assets/products/WhatsApp Image 2026-10-20 at 3.12.03 PM.jpeg";
+import dcBreaker32 from "@/assets/products/WhatsApp Image 2026-10-20 at 3.12.03 PM (1).jpeg";
+import acBreaker63SinglePole from "@/assets/products/WhatsApp Image 2026-10-20 at 3.12.08 PM.jpeg";
+import acBreaker63FourPole from "@/assets/products/WhatsApp Image 2026-10-20 at 3.12.09 PM.jpeg";
 import aboutImage from "@/assets/about.jpg";
 
 export const company = {
@@ -107,19 +112,24 @@ export const services = [
 
 export type Product = {
   name: string;
+  category: string;
   image: string;
   alt: string;
   summary: string;
   specs: string[];
   price?: number;
+  priceUnit?: string;
 };
 
 export const products: Product[] = [
   {
     name: "Solar Panels",
+    category: "Solar Panel",
     image: productPanel,
     alt: "Premium monocrystalline solar panel studio product photograph",
     summary: "High-efficiency monocrystalline modules built for harsh sunlight.",
+    price: 22000,
+    priceUnit: "panel",
     specs: [
       "Monocrystalline PERC / N-type cells",
       "Anti-reflective tempered glass",
@@ -128,9 +138,12 @@ export const products: Product[] = [
   },
   {
     name: "Hybrid Inverter",
+    category: "Hybrid Inverter",
     image: productInverter,
     alt: "Modern hybrid solar inverter studio product photograph",
     summary: "Grid-tied and battery-ready conversion with smart monitoring.",
+    price: 185000,
+    priceUnit: "unit",
     specs: [
       "Grid-tie + battery hybrid operation",
       "Dual MPPT tracking",
@@ -139,9 +152,12 @@ export const products: Product[] = [
   },
   {
     name: "Battery Storage",
+    category: "Energy Storage",
     image: productBattery,
     alt: "Wall-mounted lithium home battery storage unit",
     summary: "Store daytime generation and run through load shedding.",
+    price: 280000,
+    priceUnit: "unit",
     specs: [
       "Lithium chemistry, modular capacity",
       "Integrated battery management system",
@@ -150,14 +166,67 @@ export const products: Product[] = [
   },
   {
     name: "Mounting Structures",
+    category: "Mounting",
     image: productMounting,
     alt: "Aluminium solar panel mounting rails, clamps and brackets",
     summary: "Engineered structures rated for local wind and roof loads.",
+    price: 6000,
+    priceUnit: "panel",
     specs: [
       "Hot-dip galvanised / aluminium rails",
       "Wind-load engineered layouts",
       "Roof-safe, leak-proof fixings",
     ],
+  },
+  {
+    name: "CHINT NB1-63DC C20A 2-Pole Breaker",
+    category: "DC Protection",
+    image: dcBreaker20,
+    alt: "CHINT NB1-63DC C20A two-pole solar DC circuit breaker",
+    summary: "Two-pole DC circuit protection for solar installations.",
+    price: 4500,
+    priceUnit: "unit",
+    specs: ["20A rated current", "Up to 500V DC", "Two-pole overcurrent protection"],
+  },
+  {
+    name: "CHINT NB1-63DC C25A 2-Pole Breaker",
+    category: "DC Protection",
+    image: dcBreaker25,
+    alt: "CHINT NB1-63DC C25A two-pole solar DC circuit breaker",
+    summary: "Two-pole DC circuit protection for photovoltaic systems.",
+    price: 4800,
+    priceUnit: "unit",
+    specs: ["25A rated current", "Up to 500V DC", "Two-pole overcurrent protection"],
+  },
+  {
+    name: "CHINT NB1-63DC C32A 2-Pole Breaker",
+    category: "DC Protection",
+    image: dcBreaker32,
+    alt: "CHINT NB1-63DC C32A two-pole solar DC circuit breaker",
+    summary: "Higher-capacity DC circuit protection for solar applications.",
+    price: 5200,
+    priceUnit: "unit",
+    specs: ["32A rated current", "Up to 500V DC", "Two-pole overcurrent protection"],
+  },
+  {
+    name: "CHINT NXB-63 C63 Single-Pole AC Breaker",
+    category: "AC Protection",
+    image: acBreaker63SinglePole,
+    alt: "CHINT NXB-63 C63 single-pole AC circuit breaker",
+    summary: "Compact single-pole AC circuit protection for distribution boards.",
+    price: 2200,
+    priceUnit: "unit",
+    specs: ["63A rated current", "230V AC", "6kA breaking capacity"],
+  },
+  {
+    name: "CHINT NXB-63 C63 Four-Pole AC Breaker",
+    category: "AC Protection",
+    image: acBreaker63FourPole,
+    alt: "CHINT NXB-63 C63 four-pole AC circuit breaker",
+    summary: "Four-pole AC circuit protection for three-phase installations.",
+    price: 12500,
+    priceUnit: "unit",
+    specs: ["63A rated current", "400V AC", "Four-pole protection"],
   },
 ];
 

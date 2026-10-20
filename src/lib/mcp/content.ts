@@ -49,7 +49,10 @@ export const services = [
 export const products = [
   {
     name: "Solar Panels",
+    category: "Solar Panel",
     summary: "High-efficiency monocrystalline modules built for harsh sunlight.",
+    price: 22000,
+    priceUnit: "panel",
     specs: [
       "Monocrystalline PERC / N-type cells",
       "Anti-reflective tempered glass",
@@ -58,7 +61,10 @@ export const products = [
   },
   {
     name: "Hybrid Inverter",
+    category: "Hybrid Inverter",
     summary: "Grid-tied and battery-ready conversion with smart monitoring.",
+    price: 185000,
+    priceUnit: "unit",
     specs: [
       "Grid-tie + battery hybrid operation",
       "Dual MPPT tracking",
@@ -67,7 +73,10 @@ export const products = [
   },
   {
     name: "Battery Storage",
+    category: "Energy Storage",
     summary: "Store daytime generation and run through load shedding.",
+    price: 280000,
+    priceUnit: "unit",
     specs: [
       "Lithium chemistry, modular capacity",
       "Integrated battery management system",
@@ -76,12 +85,55 @@ export const products = [
   },
   {
     name: "Mounting Structures",
+    category: "Mounting",
     summary: "Engineered structures rated for local wind and roof loads.",
+    price: 6000,
+    priceUnit: "panel",
     specs: [
       "Hot-dip galvanised / aluminium rails",
       "Wind-load engineered layouts",
       "Roof-safe, leak-proof fixings",
     ],
+  },
+  {
+    name: "CHINT NB1-63DC C20A 2-Pole Breaker",
+    category: "DC Protection",
+    summary: "Two-pole DC circuit protection for solar installations.",
+    price: 4500,
+    priceUnit: "unit",
+    specs: ["20A rated current", "Up to 500V DC", "Two-pole overcurrent protection"],
+  },
+  {
+    name: "CHINT NB1-63DC C25A 2-Pole Breaker",
+    category: "DC Protection",
+    summary: "Two-pole DC circuit protection for photovoltaic systems.",
+    price: 4800,
+    priceUnit: "unit",
+    specs: ["25A rated current", "Up to 500V DC", "Two-pole overcurrent protection"],
+  },
+  {
+    name: "CHINT NB1-63DC C32A 2-Pole Breaker",
+    category: "DC Protection",
+    summary: "Higher-capacity DC circuit protection for solar applications.",
+    price: 5200,
+    priceUnit: "unit",
+    specs: ["32A rated current", "Up to 500V DC", "Two-pole overcurrent protection"],
+  },
+  {
+    name: "CHINT NXB-63 C63 Single-Pole AC Breaker",
+    category: "AC Protection",
+    summary: "Compact single-pole AC circuit protection for distribution boards.",
+    price: 2200,
+    priceUnit: "unit",
+    specs: ["63A rated current", "230V AC", "6kA breaking capacity"],
+  },
+  {
+    name: "CHINT NXB-63 C63 Four-Pole AC Breaker",
+    category: "AC Protection",
+    summary: "Four-pole AC circuit protection for three-phase installations.",
+    price: 12500,
+    priceUnit: "unit",
+    specs: ["63A rated current", "400V AC", "Four-pole protection"],
   },
 ];
 

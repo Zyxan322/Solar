@@ -86,6 +86,7 @@ function Index() {
   return (
     <>
       <Hero />
+      <ProductShowcase layout="grid" />
       <div className="[perspective:1600px]">
         <PartnersMarquee />
         <Scroll3D shift={70}>
@@ -101,9 +102,6 @@ function Index() {
           <ProjectHighlights />
         </Scroll3D>
         <ParallaxEnergy />
-        <Scroll3D shift={90} rotate={7}>
-          <ProductShowcase />
-        </Scroll3D>
         <Scroll3D shift={60}>
           <Statistics />
         </Scroll3D>
