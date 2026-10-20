@@ -38,14 +38,12 @@ export function Navbar() {
     <>
       <header
         style={{
-          backgroundColor: scrolled
-            ? "color-mix(in oklab, var(--background) 92%, transparent)"
-            : "transparent",
-          backdropFilter: scrolled ? "blur(12px)" : "none",
+          backgroundColor: scrolled ? "rgb(0 0 0 / 88%)" : "rgb(0 0 0 / 68%)",
+          backdropFilter: "blur(12px)",
         }}
         className={cn(
-          "section-dark fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color,padding,backdrop-filter] duration-250 ease-out",
-          scrolled ? "border-border/70 py-3 shadow-sm" : "border-transparent py-3.5",
+          "section-dark fixed inset-x-0 top-0 z-50 border-b border-white/10 transition-[background-color,padding] duration-250 ease-out",
+          scrolled ? "py-3 shadow-sm" : "py-3.5",
         )}
       >
         <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 lg:px-8">
