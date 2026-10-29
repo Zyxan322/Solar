@@ -1,6 +1,6 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Minus, Plus } from "lucide-react";
-import { products, type Product } from "@/data/site";
+import { productCategories, products, type Product } from "@/data/site";
 import { useCart, formatPrice } from "./cart-context";
 import { toast } from "sonner";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "./ui/dialog";
@@ -13,8 +13,17 @@ export function ProductShowcase({ layout = "grid" }: { layout?: "carousel" | "gr
   const trackRef = useRef<HTMLDivElement>(null);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [detailQuantity, setDetailQuantity] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const { addItem } = useCart();
   const isGrid = layout === "grid";
+  const activeCategory = productCategories.find((category) => category.id === selectedCategory);
+  const visibleProducts = activeCategory?.categories
+    ? products.filter((product) => activeCategory.categories.includes(product.category))
+    : products;
+
+  useEffect(() => {
+    trackRef.current?.scrollTo({ left: 0 });
+  }, [selectedCategory]);
 
   const scrollBy = (dir: number) => {
     trackRef.current?.scrollBy({
@@ -60,15 +69,54 @@ export function ProductShowcase({ layout = "grid" }: { layout?: "carousel" | "gr
         </div>
       </div>
 
+      <div className="mx-auto mt-8 max-w-7xl px-5 lg:px-8">
+        <div
+          aria-label="Filter products by category"
+          role="group"
+          className="inline-flex max-w-full gap-1 overflow-x-auto rounded-full border border-slate-200 bg-slate-100 p-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
+          {productCategories.map((category) => {
+            const count = category.categories
+              ? products.filter((product) => category.categories?.includes(product.category)).length
+              : products.length;
+            const isSelected = selectedCategory === category.id;
+
+            return (
+              <button
+                key={category.id}
+                type="button"
+                aria-pressed={isSelected}
+                onClick={() => setSelectedCategory(category.id)}
+                className={`inline-flex shrink-0 items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium transition-colors ${
+                  isSelected
+                    ? "bg-white text-slate-900 shadow-sm"
+                    : "text-slate-600 hover:text-slate-900"
+                }`}
+              >
+                {category.label}
+                <span
+                  className={`rounded-full px-1.5 py-0.5 text-[10px] leading-none ${
+                    isSelected ? "bg-slate-100 text-slate-600" : "bg-slate-200/70 text-slate-500"
+                  }`}
+                >
+                  {count}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       <div
         ref={trackRef}
+        id="product-results"
         className={
           isGrid
             ? "mx-auto mt-12 grid max-w-7xl auto-rows-fr grid-cols-1 gap-4 px-5 pb-6 min-[360px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-5 lg:px-8 xl:grid-cols-5"
             : "mt-14 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-5 pb-6 [scrollbar-width:none] lg:px-8 [&::-webkit-scrollbar]:hidden"
         }
       >
-        {products.map((product, i) => (
+        {visibleProducts.map((product, i) => (
           <Reveal
             key={product.name}
             delay={isGrid ? (i % 5) * 45 : i * 90}

@@ -43,21 +43,21 @@ export function Navbar() {
         }}
         className={cn(
           "section-dark fixed inset-x-0 top-0 z-50 border-b border-white/10 transition-[background-color,padding] duration-250 ease-out",
-          scrolled ? "py-3 shadow-sm" : "py-3.5",
+          scrolled ? "py-2.5 shadow-sm" : "py-3",
         )}
       >
         <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 lg:px-8">
           <Link
             to="/"
-            className="group flex min-w-0 items-center gap-2.5"
+            className="group flex min-w-0 shrink-0 items-center gap-2.5"
             aria-label={`${company.name} home`}
           >
-            <span className="grid h-11 w-11 shrink-0 place-items-center overflow-hidden rounded-full bg-white ring-1 ring-primary/30 transition-colors duration-250 group-hover:ring-primary/60">
+            <span className="grid h-14 w-14 shrink-0 place-items-center overflow-hidden rounded-full bg-white ring-1 ring-primary/30 transition-colors duration-250 group-hover:ring-primary/60">
               <img
                 src={logo}
                 alt={`${company.name} logo`}
-                width={44}
-                height={44}
+                width={56}
+                height={56}
                 className="h-full w-full object-contain"
               />
             </span>
@@ -67,7 +67,7 @@ export function Navbar() {
           </Link>
 
           <div className="flex items-center gap-2 lg:gap-6">
-            <ul className="hidden items-center gap-5 text-[0.82rem] font-medium lg:flex xl:gap-6">
+            <ul className="hidden items-center gap-5 text-[0.82rem] font-medium xl:flex">
               {navigation.map((item) => (
                 <li key={item.label}>
                   <Link
@@ -81,7 +81,7 @@ export function Navbar() {
                 </li>
               ))}
             </ul>
-            <MagneticButton href="/contact" className="hidden px-5 py-2.5 lg:inline-flex">
+            <MagneticButton href="/contact" className="hidden px-5 py-2.5 xl:inline-flex">
               Get Started
             </MagneticButton>
             <CartDrawer />
@@ -89,7 +89,7 @@ export function Navbar() {
               type="button"
               onClick={() => setOpen(true)}
               aria-label="Open menu"
-              className="glass btn-3d flex h-11 w-11 shrink-0 items-center justify-center rounded-full lg:hidden"
+              className="glass btn-3d flex h-11 w-11 shrink-0 items-center justify-center rounded-full xl:hidden"
             >
               <span className="relative flex h-3 w-5 flex-col justify-between">
                 <span className="h-[2px] w-full rounded bg-foreground transition-transform duration-300" />
@@ -102,7 +102,7 @@ export function Navbar() {
 
       <div
         className={cn(
-          "section-dark fixed inset-0 z-60 flex flex-col bg-background/95 backdrop-blur-lg transition-opacity duration-250 ease-out lg:hidden",
+          "section-dark fixed inset-0 z-60 flex flex-col bg-background/95 backdrop-blur-lg transition-opacity duration-250 ease-out xl:hidden",
           open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
         )}
       >
@@ -113,12 +113,12 @@ export function Navbar() {
             aria-label={`${company.name} home`}
             className="inline-flex items-center gap-3"
           >
-            <span className="grid h-11 w-11 place-items-center overflow-hidden rounded-full bg-white ring-1 ring-primary/30">
+            <span className="grid h-13 w-13 place-items-center overflow-hidden rounded-full bg-white ring-1 ring-primary/30">
               <img
                 src={logo}
                 alt={`${company.name} logo`}
-                width={44}
-                height={44}
+                width={52}
+                height={52}
                 className="h-full w-full object-contain"
               />
             </span>

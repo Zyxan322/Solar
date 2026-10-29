@@ -230,6 +230,17 @@ export const products: Product[] = [
   },
 ];
 
+export const productCategories = [
+  { id: "all", label: "All Products", categories: null },
+  {
+    id: "solar",
+    label: "Solar",
+    categories: ["Solar Panel", "Hybrid Inverter", "Energy Storage", "Mounting"],
+  },
+  { id: "dc-protection", label: "DC Protection", categories: ["DC Protection"] },
+  { id: "ac-protection", label: "AC Protection", categories: ["AC Protection"] },
+];
+
 /** Edit these figures in one place — keep them accurate to the business. */
 export const statistics = [
   { value: 10, suffix: "+", label: "Years of Experience" },
