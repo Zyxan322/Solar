@@ -22,11 +22,10 @@ export function About() {
           </Reveal>
           <Reveal delay={150}>
             <p className="mt-6 text-base leading-relaxed text-muted-foreground">
-              At Reinvent Energies, we specialize in expert solar installation
-              and provide a comprehensive range of high-quality solar products.
-              Our focus is on helping residential and commercial clients achieve
-              sustainable energy solutions while reducing costs and
-              environmental impact.
+              At Reinvent Energies, we specialize in expert solar installation and provide a
+              comprehensive range of high-quality solar products. Our focus is on helping
+              residential and commercial clients achieve sustainable energy solutions while reducing
+              costs and environmental impact.
             </p>
           </Reveal>
           <Reveal delay={220}>

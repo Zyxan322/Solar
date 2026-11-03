@@ -28,10 +28,7 @@ export function Capabilities() {
                   >
                     {group.group}
                   </h3>
-                  <ul
-                    className="mt-5 space-y-3"
-                    style={{ transform: "translateZ(16px)" }}
-                  >
+                  <ul className="mt-5 space-y-3" style={{ transform: "translateZ(16px)" }}>
                     {group.items.map((item) => (
                       <li
                         key={item}
@@ -52,12 +49,8 @@ export function Capabilities() {
           {systemTypes.map((s, i) => (
             <Reveal key={s.title} delay={360 + i * 100}>
               <div className="glass card-3d rounded-2xl p-7">
-                <h3 className="font-display text-lg font-semibold text-primary">
-                  {s.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  {s.body}
-                </p>
+                <h3 className="font-display text-lg font-semibold text-primary">{s.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.body}</p>
               </div>
             </Reveal>
           ))}

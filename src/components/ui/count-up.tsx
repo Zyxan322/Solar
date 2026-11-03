@@ -100,15 +100,14 @@ export function CountUp({
       ref={ref}
       className={cn(
         "inline-flex items-baseline tabular-nums transition-all duration-300",
-        running && "[text-shadow:0_0_18px_color-mix(in_oklab,var(--color-primary)_45%,transparent)]",
+        running &&
+          "[text-shadow:0_0_18px_color-mix(in_oklab,var(--color-primary)_45%,transparent)]",
         className,
       )}
     >
       {prefix.replace(/ $/, "\u00A0")}
       {fmt(display, decimals, group)}
-      {suffix && (
-        <span className={suffixClassName}>{suffix.replace(/^ /, "\u00A0")}</span>
-      )}
+      {suffix && <span className={suffixClassName}>{suffix.replace(/^ /, "\u00A0")}</span>}
     </span>
   );
 }

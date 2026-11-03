@@ -8,10 +8,7 @@ export function ParallaxEnergy() {
   const { ref, offset } = useParallax<HTMLDivElement>(140);
 
   return (
-    <section
-      ref={ref}
-      className="relative isolate flex min-h-[85svh] items-center overflow-hidden"
-    >
+    <section ref={ref} className="relative isolate flex min-h-[85svh] items-center overflow-hidden">
       <img
         src={parallaxImage}
         alt="Wide rooftop solar installation photographed under dramatic sunlight"
@@ -45,10 +42,9 @@ export function ParallaxEnergy() {
           </Reveal>
           <Reveal delay={170}>
             <p className="mt-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Discover our range of services designed to help you transition to
-              renewable energy effortlessly. From installation to maintenance,
-              we provide quick and reliable solutions that meet your solar
-              needs.
+              Discover our range of services designed to help you transition to renewable energy
+              effortlessly. From installation to maintenance, we provide quick and reliable
+              solutions that meet your solar needs.
             </p>
           </Reveal>
           <Reveal delay={250}>

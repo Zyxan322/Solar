@@ -11,7 +11,7 @@ import { products, type Product } from "@/data/site";
 
 const STORAGE_KEY = "reinvent-energies-cart";
 
-type StoredCartItem = { productName: string; quantity: number };
+type StoredCartItem = { productId: string; quantity: number };
 export type CartItem = { product: Product; quantity: number };
 
 type CartContextValue = {
@@ -19,14 +19,18 @@ type CartContextValue = {
   count: number;
   total: number | null;
   addItem: (product: Product, quantity?: number) => void;
-  setQuantity: (productName: string, quantity: number) => void;
-  removeItem: (productName: string) => void;
+  setQuantity: (productId: string, quantity: number) => void;
+  removeItem: (productId: string) => void;
   clearCart: () => void;
 };
 
 const CartContext = createContext<CartContextValue | null>(null);
 
 function readCart(): StoredCartItem[] {
+  if (typeof window === "undefined") {
+    return [];
+  }
+
   const stored = window.localStorage.getItem(STORAGE_KEY);
   if (!stored) return [];
 
@@ -35,18 +39,25 @@ function readCart(): StoredCartItem[] {
     if (!Array.isArray(parsed)) {
       throw new Error("Cart storage must contain a list.");
     }
-    return parsed.filter(
-      (item): item is StoredCartItem =>
-        typeof item === "object" &&
-        item !== null &&
-        "productName" in item &&
-        typeof item.productName === "string" &&
-        "quantity" in item &&
-        typeof item.quantity === "number" &&
-        Number.isSafeInteger(item.quantity) &&
-        item.quantity > 0 &&
-        products.some((product) => product.name === item.productName),
-    );
+    return parsed.flatMap((item) => {
+      if (
+        typeof item !== "object" ||
+        item === null ||
+        !("quantity" in item) ||
+        typeof item.quantity !== "number" ||
+        !Number.isSafeInteger(item.quantity) ||
+        item.quantity <= 0
+      ) {
+        return [];
+      }
+
+      const product = products.find(
+        (candidate) =>
+          ("productId" in item && item.productId === candidate.id) ||
+          ("productName" in item && item.productName === candidate.name),
+      );
+      return product ? [{ productId: product.id, quantity: item.quantity }] : [];
+    });
   } catch (error) {
     console.error("Unable to restore the saved cart.", error);
     window.localStorage.removeItem(STORAGE_KEY);
@@ -64,12 +75,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    if (ready) {
+    if (ready && typeof window !== "undefined") {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(storedItems));
     }
   }, [ready, storedItems]);
 
   useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
     const syncCart = (event: StorageEvent) => {
       if (event.key === STORAGE_KEY) {
         setStoredItems(event.newValue ? readCart() : []);
@@ -81,35 +96,30 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const addItem = useCallback((product: Product, quantity = 1) => {
     setStoredItems((current) => {
-      const existing = current.find((item) => item.productName === product.name);
+      const existing = current.find((item) => item.productId === product.id);
       if (existing) {
         return current.map((item) =>
-          item.productName === product.name
-            ? { ...item, quantity: item.quantity + quantity }
-            : item,
+          item.productId === product.id ? { ...item, quantity: item.quantity + quantity } : item,
         );
       }
-      return [...current, { productName: product.name, quantity }];
+      return [...current, { productId: product.id, quantity }];
     });
   }, []);
 
-  const setQuantity = useCallback((productName: string, quantity: number) => {
+  const setQuantity = useCallback((productId: string, quantity: number) => {
     setStoredItems((current) =>
       quantity <= 0
-        ? current.filter((item) => item.productName !== productName)
-        : current.map((item) => (item.productName === productName ? { ...item, quantity } : item)),
+        ? current.filter((item) => item.productId !== productId)
+        : current.map((item) => (item.productId === productId ? { ...item, quantity } : item)),
     );
   }, []);
 
-  const removeItem = useCallback(
-    (productName: string) => setQuantity(productName, 0),
-    [setQuantity],
-  );
+  const removeItem = useCallback((productId: string) => setQuantity(productId, 0), [setQuantity]);
   const clearCart = useCallback(() => setStoredItems([]), []);
 
   const value = useMemo<CartContextValue>(() => {
     const items = storedItems.flatMap((item) => {
-      const product = products.find(({ name }) => name === item.productName);
+      const product = products.find(({ id }) => id === item.productId);
       return product ? [{ product, quantity: item.quantity }] : [];
     });
     const count = items.reduce((sum, item) => sum + item.quantity, 0);

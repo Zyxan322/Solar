@@ -11,7 +11,9 @@ export default defineTool({
     query: z
       .string()
       .optional()
-      .describe("Optional case-insensitive filter matched against product name, summary and specs."),
+      .describe(
+        "Optional case-insensitive filter matched against product name, summary and specs.",
+      ),
   },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: ({ query }) => {

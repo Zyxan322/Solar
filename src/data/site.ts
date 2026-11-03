@@ -110,136 +110,77 @@ export const services = [
   },
 ];
 
-export type Product = {
-  name: string;
-  category: string;
-  image: string;
-  alt: string;
-  summary: string;
-  specs: string[];
-  price?: number;
-  priceUnit?: string;
-};
+import {
+  brands,
+  getProductCategoryLabel,
+  productCategories,
+  productRecords,
+  type ProductRecord,
+} from "./catalog";
 
-export const products: Product[] = [
-  {
-    name: "Solar Panels",
-    category: "Solar Panel",
+export { brands, getProductCategoryLabel, productCategories, productRecords };
+
+export type Product = ProductRecord & { image: string; alt: string };
+
+const productImages: Record<string, { image: string; alt: string }> = {
+  "solar-panels": {
     image: productPanel,
     alt: "Premium monocrystalline solar panel studio product photograph",
-    summary: "High-efficiency monocrystalline modules built for harsh sunlight.",
-    price: 22000,
-    priceUnit: "panel",
-    specs: [
-      "Monocrystalline PERC / N-type cells",
-      "Anti-reflective tempered glass",
-      "Corrosion-resistant aluminium frame",
-    ],
   },
-  {
-    name: "Hybrid Inverter",
-    category: "Hybrid Inverter",
+  "hybrid-inverter": {
     image: productInverter,
     alt: "Modern hybrid solar inverter studio product photograph",
-    summary: "Grid-tied and battery-ready conversion with smart monitoring.",
-    price: 185000,
-    priceUnit: "unit",
-    specs: [
-      "Grid-tie + battery hybrid operation",
-      "Dual MPPT tracking",
-      "App-based performance monitoring",
-    ],
   },
-  {
-    name: "Battery Storage",
-    category: "Energy Storage",
+  "battery-storage": {
     image: productBattery,
     alt: "Wall-mounted lithium home battery storage unit",
-    summary: "Store daytime generation and run through load shedding.",
-    price: 280000,
-    priceUnit: "unit",
-    specs: [
-      "Lithium chemistry, modular capacity",
-      "Integrated battery management system",
-      "Silent wall-mounted installation",
-    ],
   },
-  {
-    name: "Mounting Structures",
-    category: "Mounting",
+  "mounting-structures": {
     image: productMounting,
     alt: "Aluminium solar panel mounting rails, clamps and brackets",
-    summary: "Engineered structures rated for local wind and roof loads.",
-    price: 6000,
-    priceUnit: "panel",
-    specs: [
-      "Hot-dip galvanised / aluminium rails",
-      "Wind-load engineered layouts",
-      "Roof-safe, leak-proof fixings",
-    ],
   },
-  {
-    name: "CHINT NB1-63DC C20A 2-Pole Breaker",
-    category: "DC Protection",
+  "chint-nb1-63dc-c20a": {
     image: dcBreaker20,
     alt: "CHINT NB1-63DC C20A two-pole solar DC circuit breaker",
-    summary: "Two-pole DC circuit protection for solar installations.",
-    price: 4500,
-    priceUnit: "unit",
-    specs: ["20A rated current", "Up to 500V DC", "Two-pole overcurrent protection"],
   },
-  {
-    name: "CHINT NB1-63DC C25A 2-Pole Breaker",
-    category: "DC Protection",
+  "chint-nb1-63dc-c25a": {
     image: dcBreaker25,
     alt: "CHINT NB1-63DC C25A two-pole solar DC circuit breaker",
-    summary: "Two-pole DC circuit protection for photovoltaic systems.",
-    price: 4800,
-    priceUnit: "unit",
-    specs: ["25A rated current", "Up to 500V DC", "Two-pole overcurrent protection"],
   },
-  {
-    name: "CHINT NB1-63DC C32A 2-Pole Breaker",
-    category: "DC Protection",
+  "chint-nb1-63dc-c32a": {
     image: dcBreaker32,
     alt: "CHINT NB1-63DC C32A two-pole solar DC circuit breaker",
-    summary: "Higher-capacity DC circuit protection for solar applications.",
-    price: 5200,
-    priceUnit: "unit",
-    specs: ["32A rated current", "Up to 500V DC", "Two-pole overcurrent protection"],
   },
-  {
-    name: "CHINT NXB-63 C63 Single-Pole AC Breaker",
-    category: "AC Protection",
+  "chint-nxb-63-c63-single-pole": {
     image: acBreaker63SinglePole,
     alt: "CHINT NXB-63 C63 single-pole AC circuit breaker",
-    summary: "Compact single-pole AC circuit protection for distribution boards.",
-    price: 2200,
-    priceUnit: "unit",
-    specs: ["63A rated current", "230V AC", "6kA breaking capacity"],
   },
-  {
-    name: "CHINT NXB-63 C63 Four-Pole AC Breaker",
-    category: "AC Protection",
+  "chint-nxb-63-c63-four-pole": {
     image: acBreaker63FourPole,
     alt: "CHINT NXB-63 C63 four-pole AC circuit breaker",
-    summary: "Four-pole AC circuit protection for three-phase installations.",
-    price: 12500,
-    priceUnit: "unit",
-    specs: ["63A rated current", "400V AC", "Four-pole protection"],
   },
-];
+};
 
-export const productCategories = [
-  { id: "all", label: "All Products", categories: null },
-  {
-    id: "solar",
-    label: "Solar",
-    categories: ["Solar Panel", "Hybrid Inverter", "Energy Storage", "Mounting"],
-  },
-  { id: "dc-protection", label: "DC Protection", categories: ["DC Protection"] },
-  { id: "ac-protection", label: "AC Protection", categories: ["AC Protection"] },
-];
+export const products: Product[] = productRecords.map((product) => {
+  const media = productImages[product.id];
+  if (!media) {
+    throw new Error(`Missing image mapping for catalog product "${product.id}".`);
+  }
+  return { ...product, ...media };
+});
+
+export function getProductQuoteUrl(product: Product) {
+  const brand = brands.find((entry) => entry.id === product.brandId)?.name;
+  const details = [
+    `Hello, I would like a quote for ${product.name}.`,
+    brand ? `Brand: ${brand}` : null,
+    product.model ? `Model: ${product.model}` : null,
+    `Product ID: ${product.id}`,
+  ]
+    .filter(Boolean)
+    .join("\n");
+  return `https://wa.me/${company.whatsappNumber.replace(/\D/g, "")}?text=${encodeURIComponent(details)}`;
+}
 
 /** Edit these figures in one place — keep them accurate to the business. */
 export const statistics = [

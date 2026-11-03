@@ -20,8 +20,6 @@ export function Particles({ count = 22 }: { count?: number }) {
 
   if (!mounted) return null;
 
-
-
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
       {dots.map((d) => (

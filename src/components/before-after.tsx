@@ -13,9 +13,7 @@ export function BeforeAfter() {
     const el = ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
-    setPos(
-      Math.min(100, Math.max(0, ((clientX - rect.left) / rect.width) * 100)),
-    );
+    setPos(Math.min(100, Math.max(0, ((clientX - rect.left) / rect.width) * 100)));
   }, []);
 
   useEffect(() => {
@@ -52,10 +50,7 @@ export function BeforeAfter() {
             loading="lazy"
             className="absolute inset-0 h-full w-full object-cover"
           />
-          <div
-            className="absolute inset-0 overflow-hidden"
-            style={{ width: `${pos}%` }}
-          >
+          <div className="absolute inset-0 overflow-hidden" style={{ width: `${pos}%` }}>
             <img
               src={beforeImg}
               alt="The same modern villa before solar panels were installed"

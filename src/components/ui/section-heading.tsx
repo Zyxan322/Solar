@@ -9,21 +9,9 @@ type Props = {
   className?: string;
 };
 
-export function SectionHeading({
-  eyebrow,
-  title,
-  subtitle,
-  align = "center",
-  className,
-}: Props) {
+export function SectionHeading({ eyebrow, title, subtitle, align = "center", className }: Props) {
   return (
-    <div
-      className={cn(
-        "max-w-3xl",
-        align === "center" && "mx-auto text-center",
-        className,
-      )}
-    >
+    <div className={cn("max-w-3xl", align === "center" && "mx-auto text-center", className)}>
       {eyebrow ? (
         <Reveal>
           <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-4 py-1.5 text-[0.7rem] font-semibold tracking-[0.24em] text-primary uppercase">

@@ -16,10 +16,11 @@ export function ProductShowcase({ layout = "grid" }: { layout?: "carousel" | "gr
   const [selectedCategory, setSelectedCategory] = useState("all");
   const { addItem } = useCart();
   const isGrid = layout === "grid";
-  const activeCategory = productCategories.find((category) => category.id === selectedCategory);
-  const visibleProducts = activeCategory?.categories
-    ? products.filter((product) => activeCategory.categories.includes(product.category))
-    : products;
+  const categories = [{ id: "all", label: "All Products" }, ...productCategories];
+  const visibleProducts =
+    selectedCategory === "all"
+      ? products
+      : products.filter((product) => product.categoryId === selectedCategory);
 
   useEffect(() => {
     trackRef.current?.scrollTo({ left: 0 });
@@ -75,10 +76,11 @@ export function ProductShowcase({ layout = "grid" }: { layout?: "carousel" | "gr
           role="group"
           className="inline-flex max-w-full gap-1 overflow-x-auto rounded-full border border-slate-200 bg-slate-100 p-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
-          {productCategories.map((category) => {
-            const count = category.categories
-              ? products.filter((product) => category.categories?.includes(product.category)).length
-              : products.length;
+          {categories.map((category) => {
+            const count =
+              category.id === "all"
+                ? products.length
+                : products.filter((product) => product.categoryId === category.id).length;
             const isSelected = selectedCategory === category.id;
 
             return (
@@ -118,7 +120,7 @@ export function ProductShowcase({ layout = "grid" }: { layout?: "carousel" | "gr
       >
         {visibleProducts.map((product, i) => (
           <Reveal
-            key={product.name}
+            key={product.id}
             delay={isGrid ? (i % 5) * 45 : i * 90}
             className={isGrid ? "h-full" : "w-[82vw] shrink-0 snap-start sm:w-[420px]"}
           >

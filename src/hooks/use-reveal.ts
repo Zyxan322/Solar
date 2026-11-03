@@ -1,9 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 /** Reveals an element once it enters the viewport. */
-export function useReveal<T extends HTMLElement = HTMLDivElement>(
-  threshold = 0.2,
-) {
+export function useReveal<T extends HTMLElement = HTMLDivElement>(threshold = 0.2) {
   const ref = useRef<T | null>(null);
   const [visible, setVisible] = useState(false);
 
@@ -65,9 +63,7 @@ export function useCountUp(target: number, visible: boolean, duration = 1600) {
 }
 
 /** Simple scroll-progress based parallax offset in pixels. */
-export function useParallax<T extends HTMLElement = HTMLDivElement>(
-  strength = 80,
-) {
+export function useParallax<T extends HTMLElement = HTMLDivElement>(strength = 80) {
   const ref = useRef<T | null>(null);
   const [offset, setOffset] = useState(0);
   const reduced = usePrefersReducedMotion();

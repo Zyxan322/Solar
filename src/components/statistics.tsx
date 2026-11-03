@@ -40,7 +40,6 @@ function Stat({
   );
 }
 
-
 export function Statistics() {
   const { ref, visible } = useReveal<HTMLDivElement>(0.3);
 

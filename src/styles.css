@@ -82,13 +82,10 @@
     var(--background) 100%
   );
   --gradient-primary: linear-gradient(120deg, var(--primary), var(--gold));
-  --gradient-glass: linear-gradient(
-    145deg,
-    oklch(1 0 0 / 85%) 0%,
-    oklch(1 0 0 / 55%) 60%
-  );
+  --gradient-glass: linear-gradient(145deg, oklch(1 0 0 / 85%) 0%, oklch(1 0 0 / 55%) 60%);
   --shadow-elegant: 0 30px 80px -40px oklch(0.3 0.03 158 / 35%);
-  --shadow-glow: 0 0 0 1px color-mix(in oklab, var(--primary) 22%, transparent),
+  --shadow-glow:
+    0 0 0 1px color-mix(in oklab, var(--primary) 22%, transparent),
     0 24px 60px -28px color-mix(in oklab, var(--primary) 45%, transparent);
   --ease-cinema: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -397,11 +394,7 @@
   --gold: oklch(0.82 0.16 78);
   --border: oklch(0.95 0.02 150 / 14%);
   --input: oklch(0.95 0.02 150 / 20%);
-  --gradient-glass: linear-gradient(
-    145deg,
-    oklch(1 0 0 / 10%) 0%,
-    oklch(1 0 0 / 3%) 60%
-  );
+  --gradient-glass: linear-gradient(145deg, oklch(1 0 0 / 10%) 0%, oklch(1 0 0 / 3%) 60%);
   --shadow-elegant: 0 34px 90px -40px oklch(0 0 0 / 70%);
   --shadow-glow:
     0 0 0 1px color-mix(in oklab, var(--primary) 34%, transparent),
@@ -517,15 +510,11 @@
   0%,
   100% {
     transform: scale(1);
-    filter: drop-shadow(
-      0 0 18px color-mix(in oklab, var(--primary) 40%, transparent)
-    );
+    filter: drop-shadow(0 0 18px color-mix(in oklab, var(--primary) 40%, transparent));
   }
   50% {
     transform: scale(1.06);
-    filter: drop-shadow(
-      0 0 40px color-mix(in oklab, var(--primary) 70%, transparent)
-    );
+    filter: drop-shadow(0 0 40px color-mix(in oklab, var(--primary) 70%, transparent));
   }
 }
 
@@ -577,22 +566,17 @@
 
 /* dotted brand ring built from conic dashes */
 @utility brand-ring {
-  background:
-    repeating-conic-gradient(
-      from 0deg,
-      color-mix(in oklab, var(--primary) 85%, transparent) 0deg 2.2deg,
-      transparent 2.2deg 7deg
-    );
+  background: repeating-conic-gradient(
+    from 0deg,
+    color-mix(in oklab, var(--primary) 85%, transparent) 0deg 2.2deg,
+    transparent 2.2deg 7deg
+  );
   -webkit-mask: radial-gradient(
     farthest-side,
     transparent calc(100% - 10px),
     #000 calc(100% - 9px)
   );
-  mask: radial-gradient(
-    farthest-side,
-    transparent calc(100% - 10px),
-    #000 calc(100% - 9px)
-  );
+  mask: radial-gradient(farthest-side, transparent calc(100% - 10px), #000 calc(100% - 9px));
   border-radius: 9999px;
 }
 
