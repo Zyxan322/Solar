@@ -12,11 +12,14 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as BlogRouteImport } from './routes/blog'
+import { Route as BreakersRouteImport } from './routes/breakers'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as InvertersRouteImport } from './routes/inverters'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ShopRouteImport } from './routes/shop'
+import { Route as SolarPanelsRouteImport } from './routes/solar-panels'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as ProductsProductIdRouteImport } from './routes/products/$productId'
@@ -37,9 +40,19 @@ const BlogRoute = BlogRouteImport.update({
   path: '/blog',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BreakersRoute = BreakersRouteImport.update({
+  id: '/breakers',
+  path: '/breakers',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InvertersRoute = InvertersRouteImport.update({
+  id: '/inverters',
+  path: '/inverters',
   getParentRoute: () => rootRouteImport,
 } as any)
 const McpRoute = McpRouteImport.update({
@@ -60,6 +73,11 @@ const ServicesRoute = ServicesRouteImport.update({
 const ShopRoute = ShopRouteImport.update({
   id: '/shop',
   path: '/shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SolarPanelsRoute = SolarPanelsRouteImport.update({
+  id: '/solar-panels',
+  path: '/solar-panels',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Char91DotmcpChar93ListToolsRoute =
@@ -90,11 +108,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/blog': typeof BlogRoute
+  '/breakers': typeof BreakersRoute
   '/contact': typeof ContactRoute
+  '/inverters': typeof InvertersRoute
   '/mcp': typeof McpRoute
   '/products': typeof ProductsRouteWithChildren
   '/services': typeof ServicesRoute
   '/shop': typeof ShopRoute
+  '/solar-panels': typeof SolarPanelsRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/products/$productId': typeof ProductsProductIdRoute
@@ -104,11 +125,14 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/blog': typeof BlogRoute
+  '/breakers': typeof BreakersRoute
   '/contact': typeof ContactRoute
+  '/inverters': typeof InvertersRoute
   '/mcp': typeof McpRoute
   '/products': typeof ProductsRouteWithChildren
   '/services': typeof ServicesRoute
   '/shop': typeof ShopRoute
+  '/solar-panels': typeof SolarPanelsRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/products/$productId': typeof ProductsProductIdRoute
@@ -119,11 +143,14 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/blog': typeof BlogRoute
+  '/breakers': typeof BreakersRoute
   '/contact': typeof ContactRoute
+  '/inverters': typeof InvertersRoute
   '/mcp': typeof McpRoute
   '/products': typeof ProductsRouteWithChildren
   '/services': typeof ServicesRoute
   '/shop': typeof ShopRoute
+  '/solar-panels': typeof SolarPanelsRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/products/$productId': typeof ProductsProductIdRoute
@@ -135,11 +162,14 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/blog'
+    | '/breakers'
     | '/contact'
+    | '/inverters'
     | '/mcp'
     | '/products'
     | '/services'
     | '/shop'
+    | '/solar-panels'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/products/$productId'
@@ -149,11 +179,14 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/blog'
+    | '/breakers'
     | '/contact'
+    | '/inverters'
     | '/mcp'
     | '/products'
     | '/services'
     | '/shop'
+    | '/solar-panels'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/products/$productId'
@@ -163,11 +196,14 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/blog'
+    | '/breakers'
     | '/contact'
+    | '/inverters'
     | '/mcp'
     | '/products'
     | '/services'
     | '/shop'
+    | '/solar-panels'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/products/$productId'
@@ -178,11 +214,14 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   BlogRoute: typeof BlogRoute
+  BreakersRoute: typeof BreakersRoute
   ContactRoute: typeof ContactRoute
+  InvertersRoute: typeof InvertersRoute
   McpRoute: typeof McpRoute
   ProductsRoute: typeof ProductsRouteWithChildren
   ServicesRoute: typeof ServicesRoute
   ShopRoute: typeof ShopRoute
+  SolarPanelsRoute: typeof SolarPanelsRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -211,11 +250,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/breakers': {
+      id: '/breakers'
+      path: '/breakers'
+      fullPath: '/breakers'
+      preLoaderRoute: typeof BreakersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inverters': {
+      id: '/inverters'
+      path: '/inverters'
+      fullPath: '/inverters'
+      preLoaderRoute: typeof InvertersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mcp': {
@@ -244,6 +297,13 @@ declare module '@tanstack/react-router' {
       path: '/shop'
       fullPath: '/shop'
       preLoaderRoute: typeof ShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/solar-panels': {
+      id: '/solar-panels'
+      path: '/solar-panels'
+      fullPath: '/solar-panels'
+      preLoaderRoute: typeof SolarPanelsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.mcp/list-tools': {
@@ -293,11 +353,14 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   BlogRoute: BlogRoute,
+  BreakersRoute: BreakersRoute,
   ContactRoute: ContactRoute,
+  InvertersRoute: InvertersRoute,
   McpRoute: McpRoute,
   ProductsRoute: ProductsRouteWithChildren,
   ServicesRoute: ServicesRoute,
   ShopRoute: ShopRoute,
+  SolarPanelsRoute: SolarPanelsRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
