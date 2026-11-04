@@ -15,6 +15,12 @@ import dcBreaker25 from "@/assets/products/WhatsApp Image 2026-10-20 at 3.12.03 
 import dcBreaker32 from "@/assets/products/WhatsApp Image 2026-10-20 at 3.12.03 PM (1).jpeg";
 import acBreaker63SinglePole from "@/assets/products/WhatsApp Image 2026-10-20 at 3.12.08 PM.jpeg";
 import acBreaker63FourPole from "@/assets/products/WhatsApp Image 2026-10-20 at 3.12.09 PM.jpeg";
+import chintNxb63TwoPole from "@/assets/products/WhatsApp Image 2026-11-04 at 9.26.21 AM.jpeg";
+import chintNxb63TwoPoleAlt from "@/assets/products/WhatsApp Image 2026-11-04 at 9.26.22 AM.jpeg";
+import chintNxb63TwoPoleDetail from "@/assets/products/WhatsApp Image 2026-11-04 at 9.26.26 AM.jpeg";
+import moraAesC63Breakers from "@/assets/products/WhatsApp Image 2026-11-04 at 9.26.33 AM.jpeg";
+import moraAesC63BreakersAlt from "@/assets/products/WhatsApp Image 2026-11-04 at 9.26.42 AM.jpeg";
+import moraSurgeProtection from "@/assets/products/WhatsApp Image 2026-11-04 at 9.26.32 AM.jpeg";
 import aboutImage from "@/assets/about.jpg";
 
 export const company = {
@@ -120,9 +126,9 @@ import {
 
 export { brands, getProductCategoryLabel, productCategories, productRecords };
 
-export type Product = ProductRecord & { image: string; alt: string };
+export type Product = ProductRecord & { image: string; alt: string; gallery?: string[] };
 
-const productImages: Record<string, { image: string; alt: string }> = {
+const productImages: Record<string, { image: string; alt: string; gallery?: string[] }> = {
   "solar-panels": {
     image: productPanel,
     alt: "Premium monocrystalline solar panel studio product photograph",
@@ -158,6 +164,20 @@ const productImages: Record<string, { image: string; alt: string }> = {
   "chint-nxb-63-c63-four-pole": {
     image: acBreaker63FourPole,
     alt: "CHINT NXB-63 C63 four-pole AC circuit breaker",
+  },
+  "chint-nxb-63-c63-two-pole": {
+    image: chintNxb63TwoPole,
+    alt: "CHINT NXB-63 C63 two-pole AC circuit breaker",
+    gallery: [chintNxb63TwoPoleAlt, chintNxb63TwoPoleDetail],
+  },
+  "mora-aes-c63-breakers": {
+    image: moraAesC63Breakers,
+    alt: "MORA AES C63 circuit breakers",
+    gallery: [moraAesC63BreakersAlt],
+  },
+  "mora-aes-20dcpv-1000v": {
+    image: moraSurgeProtection,
+    alt: "MORA AES-20DCPV/1000V photovoltaic DC surge protection device",
   },
 };
 

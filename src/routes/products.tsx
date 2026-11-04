@@ -1,9 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { PageHero } from "@/components/page-hero";
-import { Scroll3D } from "@/components/ui/scroll-3d";
-import heroImage from "@/assets/page-products.jpg";
-import { ProductShowcase } from "@/components/product-showcase";
-import { CallToAction } from "@/components/call-to-action";
+import { createFileRoute, Outlet, useRouterState } from "@tanstack/react-router";
+import { ProductsPageContent } from "@/components/products-page";
 
 const title = "Solar Products | Panels, Inverters & Battery Storage";
 const description =
@@ -24,22 +20,9 @@ export const Route = createFileRoute("/products")({
 });
 
 function ProductsPage() {
-  return (
-    <>
-      <PageHero
-        eyebrow="Our Products"
-        title="Engineered for Better Energy"
-        description="High-efficiency hardware selected for Pakistani conditions — from photovoltaic modules to hybrid inverters and storage."
-        image={heroImage}
-        imageAlt="Premium solar panels with a hybrid inverter and battery storage"
-        highlights={["High-Efficiency Panels", "Hybrid Inverters", "Battery Storage"]}
-      />
-      <Scroll3D shift={50} rotate={5}>
-        <ProductShowcase layout="grid" />
-      </Scroll3D>
-      <Scroll3D shift={60} rotate={6}>
-        <CallToAction />
-      </Scroll3D>
-    </>
-  );
+  const isProductDetails = useRouterState({
+    select: ({ matches }) => matches.some((match) => match.routeId === "/products/$productId"),
+  });
+
+  return isProductDetails ? <Outlet /> : <ProductsPageContent />;
 }

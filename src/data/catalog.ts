@@ -12,7 +12,10 @@ export type ProductRecord = {
   priceUnit?: string;
 };
 
-export const brands = [{ id: "chint", name: "CHINT" }] as const;
+export const brands = [
+  { id: "chint", name: "CHINT" },
+  { id: "mora", name: "MORA" },
+] as const;
 
 export const productCategories = [
   { id: "ac-protection", label: "AC Protection" },
@@ -134,5 +137,35 @@ export const productRecords: ProductRecord[] = [
     price: 12500,
     priceUnit: "unit",
     specs: ["63A rated current", "400V AC", "Four-pole protection"],
+  },
+  {
+    id: "chint-nxb-63-c63-two-pole",
+    name: "CHINT NXB-63 C63 Two-Pole AC Breaker",
+    categoryId: "ac-protection",
+    brandId: "chint",
+    model: "NXB-63 C63",
+    summary:
+      "Two-pole CHINT NXB-63 C63 circuit breaker. Contact us to confirm current availability and pricing.",
+    specs: [],
+  },
+  {
+    id: "mora-aes-c63-breakers",
+    name: "MORA AES C63 Circuit Breakers",
+    categoryId: "ac-protection",
+    brandId: "mora",
+    model: "AES C63",
+    summary:
+      "MORA AES C63 circuit breakers. Contact us to confirm the available configuration, pricing and availability.",
+    specs: [],
+  },
+  {
+    id: "mora-aes-20dcpv-1000v",
+    name: "MORA AES-20DCPV/1000V Surge Protection Device",
+    categoryId: "dc-protection",
+    brandId: "mora",
+    model: "AES-20DCPV/1000V",
+    summary:
+      "MORA photovoltaic DC surge protection device. Contact us to confirm current availability and pricing.",
+    specs: ["1000V DC", "In: 20kA", "Imax: 40kA", "Up: ≤ 4.0kV"],
   },
 ];
