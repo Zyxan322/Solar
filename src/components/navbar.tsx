@@ -21,6 +21,7 @@ export function Navbar() {
   const [expandedProducts, setExpandedProducts] = useState<Set<string>>(() => new Set());
   const closeTimer = useRef<number | null>(null);
   const headerCategories = useMemo(() => getHeaderProductCategories(products), []);
+  const headerNavigation = navigation.filter((item) => item.label !== "Shop");
 
   const toggleExpanded = (
     setter: (update: (current: Set<string>) => Set<string>) => void,
@@ -138,7 +139,7 @@ export function Navbar() {
               }}
             >
               <ul className="flex items-center gap-5 text-[0.82rem] font-medium">
-                {navigation.map((item) => (
+                {headerNavigation.map((item) => (
                   <Fragment key={item.label}>
                     <li>
                       <Link
@@ -341,7 +342,7 @@ export function Navbar() {
           </button>
         </div>
         <ul className="flex min-h-0 flex-1 flex-col justify-start gap-2 overflow-y-auto px-8">
-          {navigation.map((item) => (
+          {headerNavigation.map((item) => (
             <Fragment key={item.label}>
               <li className="border-b border-border/60">
                 <Link
