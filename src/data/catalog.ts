@@ -1,3 +1,5 @@
+import { importedBrands, importedProductRecords } from "./imported-products";
+
 export type ProductRecord = {
   id: string;
   name: string;
@@ -15,15 +17,20 @@ export type ProductRecord = {
 export const brands = [
   { id: "chint", name: "CHINT" },
   { id: "mora", name: "MORA" },
-] as const;
+  ...importedBrands.filter((brand) => !new Set(["chint", "mora"]).has(brand.id)),
+];
 
 export const productCategories = [
   { id: "ac-protection", label: "AC Protection" },
+  { id: "accessories", label: "Accessories" },
   { id: "dc-protection", label: "DC Protection" },
   { id: "energy-storage", label: "Energy Storage" },
   { id: "hybrid-inverters", label: "Hybrid Inverters" },
+  { id: "lithium-batteries", label: "Lithium Batteries" },
   { id: "mounting-structures", label: "Mounting Structures" },
+  { id: "solar-inverters", label: "Solar Inverters" },
   { id: "solar-panels", label: "Solar Panels" },
+  { id: "vfds", label: "VFDs" },
 ] as const;
 
 export function getProductCategoryLabel(categoryId: string) {
@@ -168,4 +175,5 @@ export const productRecords: ProductRecord[] = [
       "MORA photovoltaic DC surge protection device. Contact us to confirm current availability and pricing.",
     specs: ["1000V DC", "In: 20kA", "Imax: 40kA", "Up: ≤ 4.0kV"],
   },
+  ...importedProductRecords,
 ];

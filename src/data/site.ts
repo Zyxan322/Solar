@@ -10,6 +10,8 @@ import productPanel from "@/assets/product-panel.jpg";
 import productInverter from "@/assets/product-inverter.jpg";
 import productBattery from "@/assets/product-battery.jpg";
 import productMounting from "@/assets/product-mounting.jpg";
+import productAccessories from "@/assets/product-accessories.svg";
+import productVfd from "@/assets/product-vfd.svg";
 import dcBreaker20 from "@/assets/products/WhatsApp Image 2026-10-20 at 3.12.02 PM (1).jpeg";
 import dcBreaker25 from "@/assets/products/WhatsApp Image 2026-10-20 at 3.12.03 PM.jpeg";
 import dcBreaker32 from "@/assets/products/WhatsApp Image 2026-10-20 at 3.12.03 PM (1).jpeg";
@@ -180,8 +182,31 @@ const productImages: Record<string, { image: string; alt: string; gallery?: stri
   },
 };
 
+const categoryProductImages: Record<string, { image: string; alt: string }> = {
+  accessories: {
+    image: productAccessories,
+    alt: "Illustration of insulated solar DC cables",
+  },
+  "lithium-batteries": {
+    image: productBattery,
+    alt: "Representative lithium battery for solar energy storage",
+  },
+  "solar-inverters": {
+    image: productInverter,
+    alt: "Representative solar inverter",
+  },
+  "solar-panels": {
+    image: productPanel,
+    alt: "Representative photovoltaic solar panel",
+  },
+  vfds: {
+    image: productVfd,
+    alt: "Illustration of an industrial variable-frequency drive",
+  },
+};
+
 export const products: Product[] = productRecords.map((product) => {
-  const media = productImages[product.id];
+  const media = productImages[product.id] ?? categoryProductImages[product.categoryId];
   if (!media) {
     throw new Error(`Missing image mapping for catalog product "${product.id}".`);
   }

@@ -1,5 +1,5 @@
 import { formatPrice } from "./cart-context";
-import type { Product } from "@/data/site";
+import { getProductCategoryLabel, type Product } from "@/data/site";
 
 type Props = {
   product: Product;
@@ -20,7 +20,7 @@ export function ProductCard({ product, onView, onAdd }: Props) {
           className="h-full w-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.04]"
         />
         <span className="absolute top-3 left-3 rounded-full border border-border/70 bg-background/90 px-2.5 py-1 text-[9px] font-semibold tracking-[0.12em] text-muted-foreground uppercase backdrop-blur sm:text-[10px]">
-          {product.category}
+          {getProductCategoryLabel(product.categoryId)}
         </span>
       </div>
       <div className="flex flex-1 flex-col p-3 sm:p-5">

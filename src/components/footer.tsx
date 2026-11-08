@@ -83,7 +83,7 @@ export function Footer() {
             Products
           </h2>
           <ul className="mt-5 space-y-3">
-            {products.map((product) => (
+            {products.slice(0, 5).map((product) => (
               <li key={product.name}>
                 <Link to="/shop" className={footerLinkClass}>
                   {product.name}

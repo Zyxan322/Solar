@@ -16,7 +16,7 @@ export const shoppingCategories = [
     href: "/inverters",
     description:
       "Find reliable conversion and hybrid inverter solutions for homes and commercial solar systems.",
-    productCategoryIds: ["hybrid-inverters"],
+    productCategoryIds: ["hybrid-inverters", "solar-inverters"],
     brands: [
       "Huawei",
       "Sungrow",

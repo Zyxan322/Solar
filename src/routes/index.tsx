@@ -86,7 +86,7 @@ function Index() {
   return (
     <>
       <Hero />
-      <ProductShowcase layout="grid" />
+      <ProductShowcase layout="grid" featuredLimit={12} />
       <div className="[perspective:1600px]">
         <PartnersMarquee />
         <Scroll3D shift={70}>

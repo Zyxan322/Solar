@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { Minus, Plus } from "lucide-react";
 import { productCategories, products, type Product } from "@/data/site";
 import { useCart, formatPrice } from "./cart-context";
@@ -9,11 +10,18 @@ import { SectionHeading } from "./ui/section-heading";
 import { Reveal } from "./ui/reveal";
 import { ProductCard } from "./product-card";
 
-export function ProductShowcase({ layout = "grid" }: { layout?: "carousel" | "grid" }) {
+export function ProductShowcase({
+  layout = "grid",
+  featuredLimit,
+}: {
+  layout?: "carousel" | "grid";
+  featuredLimit?: number;
+}) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [detailQuantity, setDetailQuantity] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [currentPage, setCurrentPage] = useState(1);
   const { addItem } = useCart();
   const isGrid = layout === "grid";
   const categories = [{ id: "all", label: "All Products" }, ...productCategories];
@@ -21,9 +29,27 @@ export function ProductShowcase({ layout = "grid" }: { layout?: "carousel" | "gr
     selectedCategory === "all"
       ? products
       : products.filter((product) => product.categoryId === selectedCategory);
+  const pageSize = 24;
+  const pageCount = Math.max(1, Math.ceil(visibleProducts.length / pageSize));
+  const categoryHighlights = productCategories.flatMap((category) => {
+    const product =
+      visibleProducts.find((entry) => entry.categoryId === category.id && entry.brandId) ??
+      visibleProducts.find((entry) => entry.categoryId === category.id);
+    return product ? [product] : [];
+  });
+  const highlightedIds = new Set(categoryHighlights.map((product) => product.id));
+  const featuredProducts = [
+    ...categoryHighlights,
+    ...visibleProducts.filter((product) => !highlightedIds.has(product.id)),
+  ];
+  const pageProducts =
+    featuredLimit === undefined
+      ? visibleProducts.slice((currentPage - 1) * pageSize, currentPage * pageSize)
+      : featuredProducts.slice(0, featuredLimit);
 
   useEffect(() => {
     trackRef.current?.scrollTo({ left: 0 });
+    setCurrentPage(1);
   }, [selectedCategory]);
 
   const scrollBy = (dir: number) => {
@@ -88,7 +114,10 @@ export function ProductShowcase({ layout = "grid" }: { layout?: "carousel" | "gr
                 key={category.id}
                 type="button"
                 aria-pressed={isSelected}
-                onClick={() => setSelectedCategory(category.id)}
+                onClick={() => {
+                  setSelectedCategory(category.id);
+                  setCurrentPage(1);
+                }}
                 className={`inline-flex shrink-0 items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium transition-colors ${
                   isSelected
                     ? "bg-white text-slate-900 shadow-sm"
@@ -118,7 +147,7 @@ export function ProductShowcase({ layout = "grid" }: { layout?: "carousel" | "gr
             : "mt-14 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-5 pb-6 [scrollbar-width:none] lg:px-8 [&::-webkit-scrollbar]:hidden"
         }
       >
-        {visibleProducts.map((product, i) => (
+        {pageProducts.map((product, i) => (
           <Reveal
             key={product.id}
             delay={isGrid ? (i % 5) * 45 : i * 90}
@@ -138,6 +167,42 @@ export function ProductShowcase({ layout = "grid" }: { layout?: "carousel" | "gr
           </Reveal>
         ))}
       </div>
+      {featuredLimit === undefined && pageCount > 1 ? (
+        <nav
+          aria-label="Product pages"
+          className="mx-auto mt-6 flex max-w-7xl items-center justify-center gap-4 px-5 lg:px-8"
+        >
+          <button
+            type="button"
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage((page) => Math.max(1, page - 1))}
+            className="min-h-10 rounded-full border border-slate-300 px-4 text-sm font-semibold text-slate-700 transition-colors hover:border-emerald-700 hover:text-emerald-800 disabled:cursor-not-allowed disabled:opacity-45"
+          >
+            Previous
+          </button>
+          <span aria-live="polite" className="text-sm tabular-nums text-slate-600">
+            Page {Math.min(currentPage, pageCount)} of {pageCount}
+          </span>
+          <button
+            type="button"
+            disabled={currentPage >= pageCount}
+            onClick={() => setCurrentPage((page) => Math.min(pageCount, page + 1))}
+            className="min-h-10 rounded-full border border-slate-300 px-4 text-sm font-semibold text-slate-700 transition-colors hover:border-emerald-700 hover:text-emerald-800 disabled:cursor-not-allowed disabled:opacity-45"
+          >
+            Next
+          </button>
+        </nav>
+      ) : null}
+      {featuredLimit !== undefined ? (
+        <div className="mx-auto mt-5 flex max-w-7xl justify-center px-5 lg:px-8">
+          <Link
+            to="/shop"
+            className="inline-flex min-h-11 items-center justify-center rounded-full border border-slate-300 px-5 text-sm font-semibold text-slate-700 transition-colors hover:border-emerald-700 hover:text-emerald-800"
+          >
+            Browse all {products.length} products
+          </Link>
+        </div>
+      ) : null}
       <Dialog
         open={selectedProduct !== null}
         onOpenChange={(open) => {

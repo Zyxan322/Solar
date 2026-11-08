@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpDown, ChevronDown, Filter, Search, SlidersHorizontal, X } from "lucide-react";
 import { toast } from "sonner";
@@ -23,6 +23,7 @@ import {
 
 const PRICE_MIN = 1_000;
 const PRICE_MAX = 300_000;
+const PRODUCTS_PER_PAGE = 24;
 
 type SortOption = "featured" | "latest" | "price-asc" | "price-desc";
 type ListingCategoryId = ShoppingCategoryId | "all";
@@ -242,6 +243,11 @@ export function ProductsPageContent({ categoryId = "all" }: { categoryId?: Listi
   const [priceRange, setPriceRange] = useState<[number, number]>([PRICE_MIN, PRICE_MAX]);
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState<SortOption>("featured");
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [categoryId, priceRange, search, selectedBrands, sort]);
 
   const category = shoppingCategories.find((entry) => entry.id === categoryId);
   const categoryProducts = useMemo(
@@ -267,7 +273,7 @@ export function ProductsPageContent({ categoryId = "all" }: { categoryId?: Listi
     const filtered = categoryProducts.filter((product) => {
       const brandName = getBrandName(product.brandId) ?? "";
       const searchText =
-        `${product.name} ${product.model ?? ""} ${brandName} ${product.summary} ${getProductCategoryLabel(product.categoryId)}`.toLowerCase();
+        `${product.name} ${product.model ?? ""} ${brandName} ${product.summary} ${product.specs.join(" ")} ${getProductCategoryLabel(product.categoryId)}`.toLowerCase();
       const matchesBrand =
         selectedBrands.length === 0 || selectedBrands.includes(product.brandId ?? "");
       const matchesPrice =
@@ -295,6 +301,12 @@ export function ProductsPageContent({ categoryId = "all" }: { categoryId?: Listi
     }
     return filtered;
   }, [categoryProducts, hasPriceFilter, priceRange, search, selectedBrands, sort]);
+  const pageCount = Math.max(1, Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE));
+  const safePage = Math.min(currentPage, pageCount);
+  const pageProducts = filteredProducts.slice(
+    (safePage - 1) * PRODUCTS_PER_PAGE,
+    safePage * PRODUCTS_PER_PAGE,
+  );
 
   const toggleBrand = (brandId: string) => {
     setSelectedBrands((current) =>
@@ -474,7 +486,7 @@ export function ProductsPageContent({ categoryId = "all" }: { categoryId?: Listi
 
             {filteredProducts.length ? (
               <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-3 2xl:grid-cols-4">
-                {filteredProducts.map((product) => (
+                {pageProducts.map((product) => (
                   <ProductTile
                     key={product.id}
                     product={product}
@@ -509,6 +521,32 @@ export function ProductsPageContent({ categoryId = "all" }: { categoryId?: Listi
                 </button>
               </div>
             )}
+            {filteredProducts.length > PRODUCTS_PER_PAGE ? (
+              <nav
+                aria-label="Product pages"
+                className="mt-7 flex items-center justify-center gap-4"
+              >
+                <button
+                  type="button"
+                  disabled={safePage === 1}
+                  onClick={() => setCurrentPage((page) => Math.max(1, page - 1))}
+                  className="min-h-10 rounded-full border border-slate-300 bg-white px-4 text-sm font-semibold text-slate-700 transition-colors hover:border-emerald-700 hover:text-emerald-800 disabled:cursor-not-allowed disabled:opacity-45"
+                >
+                  Previous
+                </button>
+                <span aria-live="polite" className="text-sm tabular-nums text-slate-600">
+                  Page {safePage} of {pageCount}
+                </span>
+                <button
+                  type="button"
+                  disabled={safePage >= pageCount}
+                  onClick={() => setCurrentPage((page) => Math.min(pageCount, page + 1))}
+                  className="min-h-10 rounded-full border border-slate-300 bg-white px-4 text-sm font-semibold text-slate-700 transition-colors hover:border-emerald-700 hover:text-emerald-800 disabled:cursor-not-allowed disabled:opacity-45"
+                >
+                  Next
+                </button>
+              </nav>
+            ) : null}
           </section>
         </div>
       </div>

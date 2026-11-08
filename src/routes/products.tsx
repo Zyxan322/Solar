@@ -1,9 +1,9 @@
 import { createFileRoute, Outlet, useRouterState } from "@tanstack/react-router";
 import { ProductsPageContent } from "@/components/products-page";
 
-const title = "Solar Products | Panels, Inverters & Battery Storage";
+const title = "Solar Products | Panels, Inverters, Batteries & VFDs";
 const description =
-  "Premium solar panels, hybrid inverters, battery storage and mounting structures supplied and installed by Reinvent Energies.";
+  "Browse solar panels, inverters, lithium batteries, VFDs and accessories from Reinvent Energies.";
 
 export const Route = createFileRoute("/products")({
   component: ProductsPage,
