@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1008" height="756" viewBox="0 0 1008 756" fill="none">
+  <rect width="1008" height="756" rx="32" fill="#F1F5F4"/>
+  <ellipse cx="504" cy="621" rx="266" ry="33" fill="#D5DEDA"/>
+  <path d="M285 472c0-87 55-157 123-157s123 70 123 157-55 157-123 157-123-70-123-157Z" stroke="#172B27" stroke-width="34"/>
+  <path d="M320 472c0-65 39-117 88-117s88 52 88 117-39 117-88 117-88-52-88-117Z" stroke="#20252B" stroke-width="27"/>
+  <path d="M477 465c36 4 57 29 57 59 0 48-40 77-89 77" stroke="#D14D42" stroke-width="31" stroke-linecap="round"/>
+  <path d="M635 472c0-87 55-157 123-157s123 70 123 157-55 157-123 157-123-70-123-157Z" stroke="#BF443A" stroke-width="34"/>
+  <path d="M670 472c0-65 39-117 88-117s88 52 88 117-39 117-88 117-88-52-88-117Z" stroke="#DD6B5E" stroke-width="27"/>
+  <path d="M658 457c-46-34-103-27-122 13-16 34 8 71 48 77" stroke="#20252B" stroke-width="31" stroke-linecap="round"/>
+  <path d="m523 541 56 7-24 47" stroke="#C9A963" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M525 548h49" stroke="#C9A963" stroke-width="8" stroke-linecap="round"/>
+  <text x="504" y="700" fill="#56746A" font-family="Arial, sans-serif" font-size="24" font-weight="600" text-anchor="middle">SOLAR DC CABLES</text>
+</svg>
