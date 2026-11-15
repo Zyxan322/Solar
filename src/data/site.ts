@@ -12,20 +12,10 @@ import productBattery from "@/assets/product-battery.jpg";
 import productMounting from "@/assets/product-mounting.jpg";
 import productAccessories from "@/assets/product-accessories.svg";
 import productVfd from "@/assets/product-vfd.svg";
-import dcBreaker20 from "@/assets/products/WhatsApp Image 2026-10-20 at 3.12.02 PM (1).jpeg";
-import dcBreaker25 from "@/assets/products/WhatsApp Image 2026-10-20 at 3.12.03 PM.jpeg";
-import dcBreaker32 from "@/assets/products/WhatsApp Image 2026-10-20 at 3.12.03 PM (1).jpeg";
-import acBreaker63SinglePole from "@/assets/products/WhatsApp Image 2026-10-20 at 3.12.08 PM.jpeg";
-import acBreaker63FourPole from "@/assets/products/WhatsApp Image 2026-10-20 at 3.12.09 PM.jpeg";
-import chintNxb63TwoPole from "@/assets/products/WhatsApp Image 2026-11-04 at 9.26.21 AM.jpeg";
-import chintNxb63TwoPoleAlt from "@/assets/products/WhatsApp Image 2026-11-04 at 9.26.22 AM.jpeg";
-import chintNxb63TwoPoleDetail from "@/assets/products/WhatsApp Image 2026-11-04 at 9.26.26 AM.jpeg";
-import moraAesC63Breakers from "@/assets/mora circuit/AES C63.png";
-import moraAesC63BreakersAlt from "@/assets/products/WhatsApp Image 2026-11-04 at 9.26.42 AM.jpeg";
-import moraAes98863a from "@/assets/mora circuit/AES-988 63A.png";
-import moraAesDcC63 from "@/assets/mora circuit/AES-DC C63.png";
-import moraAfs125DcC125 from "@/assets/mora circuit/AFS-125-DC C125.png";
-import moraSurgeProtection from "@/assets/products/WhatsApp Image 2026-11-04 at 9.26.32 AM.jpeg";
+import {
+  getChintCircuitImage,
+  getMoraCircuitImage,
+} from "./product-assets";
 import aboutImage from "@/assets/about.jpg";
 
 export const company = {
@@ -231,50 +221,160 @@ const productImages: Record<string, { image: string; alt: string; gallery?: stri
     alt: "Aluminium solar panel mounting rails, clamps and brackets",
   },
   "chint-nb1-63dc-c20a": {
-    image: dcBreaker20,
+    image: getChintCircuitImage("WhatsApp Image 2026-11-04 at 9.26.23 AM (1).jpeg"),
     alt: "CHINT NB1-63DC C20A two-pole solar DC circuit breaker",
   },
   "chint-nb1-63dc-c25a": {
-    image: dcBreaker25,
+    image: getChintCircuitImage("WhatsApp Image 2026-11-04 at 9.26.22 AM.jpeg"),
     alt: "CHINT NB1-63DC C25A two-pole solar DC circuit breaker",
   },
   "chint-nb1-63dc-c32a": {
-    image: dcBreaker32,
+    image: getChintCircuitImage("WhatsApp Image 2026-11-04 at 9.26.26 AM.jpeg"),
     alt: "CHINT NB1-63DC C32A two-pole solar DC circuit breaker",
   },
   "chint-nxb-63-c63-single-pole": {
-    image: acBreaker63SinglePole,
+    image: getChintCircuitImage("WhatsApp Image 2026-11-04 at 9.26.22 AM (1).jpeg"),
     alt: "CHINT NXB-63 C63 single-pole AC circuit breaker",
   },
   "chint-nxb-63-c63-four-pole": {
-    image: acBreaker63FourPole,
+    image: getChintCircuitImage("WhatsApp Image 2026-11-04 at 9.26.25 AM.jpeg"),
     alt: "CHINT NXB-63 C63 four-pole AC circuit breaker",
   },
   "chint-nxb-63-c63-two-pole": {
-    image: chintNxb63TwoPole,
+    image: getChintCircuitImage("WhatsApp Image 2026-11-04 at 9.26.21 AM.jpeg"),
     alt: "CHINT NXB-63 C63 two-pole AC circuit breaker",
-    gallery: [chintNxb63TwoPoleAlt, chintNxb63TwoPoleDetail],
+    gallery: [
+      getChintCircuitImage("WhatsApp Image 2026-11-04 at 9.26.22 AM.jpeg"),
+      getChintCircuitImage("WhatsApp Image 2026-11-04 at 9.26.26 AM.jpeg"),
+    ],
   },
   "mora-aes-c63-breakers": {
-    image: moraAesC63Breakers,
+    image: getMoraCircuitImage("AES C63.png"),
     alt: "MORA AES C63 AC miniature circuit breaker",
-    gallery: [moraAesC63BreakersAlt],
+    gallery: [
+      getMoraCircuitImage("WhatsApp Image 2026-11-04 at 9.26.33 AM.jpeg"),
+      getMoraCircuitImage("WhatsApp Image 2026-11-04 at 9.26.42 AM.jpeg"),
+    ],
   },
   "mora-aes-988-63a": {
-    image: moraAes98863a,
+    image: getMoraCircuitImage("AES-988 63A.png"),
     alt: "MORA AES-988 63A AC circuit breaker",
   },
   "mora-aes-dc-c63": {
-    image: moraAesDcC63,
+    image: getMoraCircuitImage("AES-DC C63.png"),
     alt: "MORA AES-DC C63 two-pole DC circuit breaker",
   },
   "mora-afs-125-dc-c125": {
-    image: moraAfs125DcC125,
+    image: getMoraCircuitImage("AFS-125-DC C125.png"),
     alt: "MORA AFS-125-DC C125 two-pole 1000V DC circuit breaker",
   },
   "mora-aes-20dcpv-1000v": {
-    image: moraSurgeProtection,
+    image: getMoraCircuitImage("WhatsApp Image 2026-11-04 at 9.26.32 AM.jpeg"),
     alt: "MORA AES-20DCPV/1000V photovoltaic DC surge protection device",
+  },
+  "mora-10-in-1-wifi-new-model": {
+    image: getMoraCircuitImage("10 IN 1 WIFI NEW MODEL.png"),
+    alt: "MORA 10-in-1 Wi-Fi smart protection device",
+  },
+  "mora-100a-breaker": {
+    image: getMoraCircuitImage("100a.png"),
+    alt: "MORA 100A circuit breaker",
+  },
+  "mora-125a-breaker-changeover": {
+    image: getMoraCircuitImage("125A BREAKER TYPE CHANGE OVER.png"),
+    alt: "MORA 125A breaker-type changeover switch",
+  },
+  "mora-160a-breaker": {
+    image: getMoraCircuitImage("160A.png"),
+    alt: "MORA 160A circuit breaker",
+  },
+  "mora-2-pole-ac-spd": {
+    image: getMoraCircuitImage("2 POLE AC SPD.png"),
+    alt: "MORA two-pole AC surge protection device",
+  },
+  "mora-2-pole-dc-spd": {
+    image: getMoraCircuitImage("2 POLE DC SPD.png"),
+    alt: "MORA two-pole DC surge protection device",
+  },
+  "mora-22mm-led-indicator": {
+    image: getMoraCircuitImage("22mm LED INDICATOR.png"),
+    alt: "MORA 22 mm LED indicator light",
+  },
+  "mora-4-pole-breaker": {
+    image: getMoraCircuitImage("4 POLE.png"),
+    alt: "MORA four-pole circuit breaker",
+  },
+  "mora-63a-elcb-2-pole": {
+    image: getMoraCircuitImage("63 AMPERE ELCB 2 POLE.png"),
+    alt: "MORA 63A two-pole ELCB",
+  },
+  "mora-ac-spd": {
+    image: getMoraCircuitImage("AC SPD.png"),
+    alt: "MORA AC surge protection device",
+  },
+  "mora-current-voltage-display": {
+    image: getMoraCircuitImage("CURRENT AND VOLTAGE REAL-TIMEDISPLAY.png"),
+    alt: "MORA real-time current and voltage display",
+  },
+  "mora-digital-time-switch": {
+    image: getMoraCircuitImage("Digital Time Switch MOD.png"),
+    alt: "MORA digital time switch module",
+  },
+  "mora-fire-extinguisher-ball": {
+    image: getMoraCircuitImage("Fire Extinguisher Ball.png"),
+    alt: "MORA fire extinguisher ball",
+  },
+  "mora-fire-extinguisher-device": {
+    image: getMoraCircuitImage("Fire Extinguisher Device.png"),
+    alt: "MORA automatic fire extinguisher device",
+  },
+  "mora-grand-aes-968": {
+    image: getMoraCircuitImage("Grand AES-968.png"),
+    alt: "MORA Grand AES-968 circuit breaker",
+  },
+  "mora-mccb-4-pole": {
+    image: getMoraCircuitImage("MCCB MOLDED CASE CIRCUIT BREAKER 4 POLE.png"),
+    alt: "MORA four-pole molded case circuit breaker",
+  },
+  "mora-mccb": {
+    image: getMoraCircuitImage("MCCB MOLDED CASE CIRCUIT BREAKER.png"),
+    alt: "MORA molded case circuit breaker",
+  },
+  "mora-molded-case-breaker": {
+    image: getMoraCircuitImage("Molded Case Circuit Breaker.png"),
+    alt: "MORA molded case circuit breaker",
+  },
+  "mora-aes-c63-alternate": {
+    image: getMoraCircuitImage("MORA AES C63.png"),
+    alt: "MORA AES C63 circuit breaker, alternate configuration",
+  },
+  "mora-ats": {
+    image: getMoraCircuitImage("MORA ATS.png"),
+    alt: "MORA automatic transfer switch",
+  },
+  "mora-changeover-relay-120a": {
+    image: getMoraCircuitImage("MORA CHANGE OVER RELAY 120A.png"),
+    alt: "MORA 120A changeover relay",
+  },
+  "mora-smart-10-in-1": {
+    image: getMoraCircuitImage("MORA SMART 10 IN 1WIEL.png"),
+    alt: "MORA Smart 10-in-1 protection device",
+  },
+  "mora-sub-meter-4-pole": {
+    image: getMoraCircuitImage("MORA SUB METER 4 POLE.png"),
+    alt: "MORA four-pole sub meter",
+  },
+  "mora-mini-digital-meter": {
+    image: getMoraCircuitImage("MORAMini Digital Meter Voltage & Current.png"),
+    alt: "MORA mini digital voltage and current meter",
+  },
+  "mora-pg-gland": {
+    image: getMoraCircuitImage("PG GLAND.png"),
+    alt: "MORA PG cable gland",
+  },
+  "mora-rego-5351390-mccb": {
+    image: getMoraCircuitImage("REGO NO 5351390 MOULDED CASE CIRCUIT BREAKER.png"),
+    alt: "REGO 5351390 molded case circuit breaker",
   },
 };
 
