@@ -3,11 +3,12 @@ import { getProductCategoryLabel, type Product } from "@/data/site";
 
 type Props = {
   product: Product;
+  showCategory?: boolean;
   onView: () => void;
   onAdd: () => void;
 };
 
-export function ProductCard({ product, onView, onAdd }: Props) {
+export function ProductCard({ product, showCategory = true, onView, onAdd }: Props) {
   return (
     <article className="glass group flex h-full flex-col overflow-hidden rounded-2xl border border-border/70 bg-background shadow-sm transition-[transform,box-shadow,border-color] duration-300 ease-out hover:-translate-y-1 hover:border-primary/35 hover:shadow-[var(--shadow-elegant)]">
       <div className="relative aspect-[4/3] overflow-hidden border-b border-border/60 bg-card/50 p-3 sm:p-4">
@@ -19,9 +20,11 @@ export function ProductCard({ product, onView, onAdd }: Props) {
           loading="lazy"
           className="h-full w-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.04]"
         />
-        <span className="absolute top-3 left-3 rounded-full border border-border/70 bg-background/90 px-2.5 py-1 text-[9px] font-semibold tracking-[0.12em] text-muted-foreground uppercase backdrop-blur sm:text-[10px]">
-          {getProductCategoryLabel(product.categoryId)}
-        </span>
+        {showCategory ? (
+          <span className="absolute top-3 left-3 rounded-full border border-border/70 bg-background/90 px-2.5 py-1 text-[9px] font-semibold tracking-[0.12em] text-muted-foreground uppercase backdrop-blur sm:text-[10px]">
+            {getProductCategoryLabel(product.categoryId)}
+          </span>
+        ) : null}
       </div>
       <div className="flex flex-1 flex-col p-3 sm:p-5">
         <h3 className="line-clamp-3 min-h-[3.75rem] font-display text-base leading-snug font-semibold sm:text-[17px]">

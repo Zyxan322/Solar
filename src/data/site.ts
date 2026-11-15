@@ -20,8 +20,11 @@ import acBreaker63FourPole from "@/assets/products/WhatsApp Image 2026-10-20 at 
 import chintNxb63TwoPole from "@/assets/products/WhatsApp Image 2026-11-04 at 9.26.21 AM.jpeg";
 import chintNxb63TwoPoleAlt from "@/assets/products/WhatsApp Image 2026-11-04 at 9.26.22 AM.jpeg";
 import chintNxb63TwoPoleDetail from "@/assets/products/WhatsApp Image 2026-11-04 at 9.26.26 AM.jpeg";
-import moraAesC63Breakers from "@/assets/products/WhatsApp Image 2026-11-04 at 9.26.33 AM.jpeg";
+import moraAesC63Breakers from "@/assets/mora circuit/AES C63.png";
 import moraAesC63BreakersAlt from "@/assets/products/WhatsApp Image 2026-11-04 at 9.26.42 AM.jpeg";
+import moraAes98863a from "@/assets/mora circuit/AES-988 63A.png";
+import moraAesDcC63 from "@/assets/mora circuit/AES-DC C63.png";
+import moraAfs125DcC125 from "@/assets/mora circuit/AFS-125-DC C125.png";
 import moraSurgeProtection from "@/assets/products/WhatsApp Image 2026-11-04 at 9.26.32 AM.jpeg";
 import aboutImage from "@/assets/about.jpg";
 
@@ -173,8 +176,20 @@ const productImages: Record<string, { image: string; alt: string; gallery?: stri
   },
   "mora-aes-c63-breakers": {
     image: moraAesC63Breakers,
-    alt: "MORA AES C63 circuit breakers",
+    alt: "MORA AES C63 AC miniature circuit breaker",
     gallery: [moraAesC63BreakersAlt],
+  },
+  "mora-aes-988-63a": {
+    image: moraAes98863a,
+    alt: "MORA AES-988 63A AC circuit breaker",
+  },
+  "mora-aes-dc-c63": {
+    image: moraAesDcC63,
+    alt: "MORA AES-DC C63 two-pole DC circuit breaker",
+  },
+  "mora-afs-125-dc-c125": {
+    image: moraAfs125DcC125,
+    alt: "MORA AFS-125-DC C125 two-pole 1000V DC circuit breaker",
   },
   "mora-aes-20dcpv-1000v": {
     image: moraSurgeProtection,

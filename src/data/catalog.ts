@@ -157,13 +157,43 @@ export const productRecords: ProductRecord[] = [
   },
   {
     id: "mora-aes-c63-breakers",
-    name: "MORA AES C63 Circuit Breakers",
+    name: "MORA AES C63 AC Circuit Breaker",
     categoryId: "ac-protection",
     brandId: "mora",
     model: "AES C63",
     summary:
-      "MORA AES C63 circuit breakers. Contact us to confirm the available configuration, pricing and availability.",
-    specs: [],
+      "MORA AES C63 miniature circuit breaker for AC distribution. Available configurations may vary; confirm the required pole count and availability when ordering.",
+    specs: ["C63 current rating", "230/400V AC, 50/60Hz (as marked)", "IEC 60898-1"],
+  },
+  {
+    id: "mora-aes-988-63a",
+    name: "MORA AES-988 63A AC Circuit Breaker",
+    categoryId: "ac-protection",
+    brandId: "mora",
+    model: "AES-988 63A",
+    summary:
+      "MORA AES-988 circuit breaker for AC distribution, rated at 63A. Confirm system compatibility and availability before ordering.",
+    specs: ["63A rated current", "400V AC, 50Hz (as marked)"],
+  },
+  {
+    id: "mora-aes-dc-c63",
+    name: "MORA AES-DC C63 2-Pole DC Circuit Breaker",
+    categoryId: "dc-protection",
+    brandId: "mora",
+    model: "AES-DC C63",
+    summary:
+      "Two-pole MORA AES-DC C63 breaker for photovoltaic DC circuits. Check the system voltage and installation requirements before use.",
+    specs: ["C63 current rating", "500V DC (as marked)", "Two-pole configuration"],
+  },
+  {
+    id: "mora-afs-125-dc-c125",
+    name: "MORA AFS-125-DC C125 2-Pole DC Circuit Breaker",
+    categoryId: "dc-protection",
+    brandId: "mora",
+    model: "AFS-125-DC C125",
+    summary:
+      "Two-pole MORA AFS-125-DC breaker for photovoltaic DC systems, rated C125. Verify system voltage and protection requirements before ordering.",
+    specs: ["C125 current rating", "1000V DC (as marked)", "Two-pole configuration"],
   },
   {
     id: "mora-aes-20dcpv-1000v",
