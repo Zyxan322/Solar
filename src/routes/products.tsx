@@ -1,4 +1,5 @@
 import { createFileRoute, Outlet, useRouterState } from "@tanstack/react-router";
+import { z } from "zod";
 import { ProductsPageContent } from "@/components/products-page";
 
 const title = "Solar Products | Panels, Inverters, Batteries & VFDs";
@@ -6,6 +7,7 @@ const description =
   "Browse solar panels, inverters, lithium batteries, VFDs and accessories from Reinvent Energies.";
 
 export const Route = createFileRoute("/products")({
+  validateSearch: z.object({ brand: z.string().optional() }),
   component: ProductsPage,
   head: () => ({
     meta: [
@@ -20,9 +22,10 @@ export const Route = createFileRoute("/products")({
 });
 
 function ProductsPage() {
+  const { brand } = Route.useSearch();
   const isProductDetails = useRouterState({
     select: ({ matches }) => matches.some((match) => match.routeId === "/products/$productId"),
   });
 
-  return isProductDetails ? <Outlet /> : <ProductsPageContent />;
+  return isProductDetails ? <Outlet /> : <ProductsPageContent initialBrandId={brand} />;
 }

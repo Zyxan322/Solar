@@ -372,10 +372,6 @@ const productImages: Record<string, { image: string; alt: string; gallery?: stri
     image: getMoraCircuitImage("PG GLAND.png"),
     alt: "MORA PG cable gland",
   },
-  "mora-rego-5351390-mccb": {
-    image: getMoraCircuitImage("REGO NO 5351390 MOULDED CASE CIRCUIT BREAKER.png"),
-    alt: "REGO 5351390 molded case circuit breaker",
-  },
 };
 
 const categoryProductImages: Record<string, { image: string; alt: string }> = {

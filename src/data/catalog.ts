@@ -17,7 +17,6 @@ export type ProductRecord = {
 export const brands = [
   { id: "chint", name: "CHINT" },
   { id: "mora", name: "MORA" },
-  { id: "rego", name: "REGO" },
   ...importedBrands.filter((brand) => !new Set(["chint", "mora"]).has(brand.id)),
 ];
 
@@ -455,16 +454,6 @@ export const productRecords: ProductRecord[] = [
     summary:
       "MORA PG cable gland for cable entry and retention. Select the gland size to match the cable and enclosure opening.",
     specs: ["PG cable gland", "Select size for cable and enclosure"],
-  },
-  {
-    id: "mora-rego-5351390-mccb",
-    name: "REGO 5351390 Molded Case Circuit Breaker",
-    categoryId: "ac-protection",
-    brandId: "rego",
-    model: "5351390",
-    summary:
-      "REGO molded case circuit breaker, model 5351390. Verify the product label for current, voltage and pole configuration.",
-    specs: ["Model: 5351390", "Verify rated current and voltage"],
   },
   ...importedProductRecords,
 ];

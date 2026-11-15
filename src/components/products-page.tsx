@@ -237,9 +237,17 @@ function FilterPanel({
   );
 }
 
-export function ProductsPageContent({ categoryId = "all" }: { categoryId?: ListingCategoryId }) {
+export function ProductsPageContent({
+  categoryId = "all",
+  initialBrandId,
+}: {
+  categoryId?: ListingCategoryId;
+  initialBrandId?: string;
+}) {
   const { addItem } = useCart();
-  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
+  const [selectedBrands, setSelectedBrands] = useState<string[]>(() =>
+    initialBrandId ? [initialBrandId] : [],
+  );
   const [priceRange, setPriceRange] = useState<[number, number]>([PRICE_MIN, PRICE_MAX]);
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState<SortOption>("featured");
@@ -248,6 +256,10 @@ export function ProductsPageContent({ categoryId = "all" }: { categoryId?: Listi
   useEffect(() => {
     setCurrentPage(1);
   }, [categoryId, priceRange, search, selectedBrands, sort]);
+
+  useEffect(() => {
+    setSelectedBrands(initialBrandId ? [initialBrandId] : []);
+  }, [initialBrandId]);
 
   const category = shoppingCategories.find((entry) => entry.id === categoryId);
   const categoryProducts = useMemo(
@@ -275,7 +287,8 @@ export function ProductsPageContent({ categoryId = "all" }: { categoryId?: Listi
       const searchText =
         `${product.name} ${product.model ?? ""} ${brandName} ${product.summary} ${product.specs.join(" ")} ${getProductCategoryLabel(product.categoryId)}`.toLowerCase();
       const matchesBrand =
-        selectedBrands.length === 0 || selectedBrands.includes(product.brandId ?? "");
+        selectedBrands.length === 0 ||
+        selectedBrands.includes(product.brandId?.trim() || "unspecified");
       const matchesPrice =
         !hasPriceFilter ||
         (product.price !== undefined &&
