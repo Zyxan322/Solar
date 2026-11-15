@@ -132,6 +132,87 @@ export { brands, getProductCategoryLabel, productCategories, productRecords };
 
 export type Product = ProductRecord & { image: string; alt: string; gallery?: string[] };
 
+const normalizeProductText = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/[_/\\]+/g, " ")
+    .replace(/[^a-z0-9]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+const extractPowerTerms = (value: string) =>
+  [...new Set((value.match(/\d+(?:[.,]\d+)?\s*(?:kw|w)/gi) ?? []).map((term) => term.replace(/\s+/g, "").toLowerCase()))];
+
+const solarAssetModules = import.meta.glob("/src/assets/Solar/**/*.{webp,jpg,jpeg,jfif}", {
+  eager: true,
+  import: "default",
+}) as Record<string, string>;
+
+const inverterAssetModules = import.meta.glob("/src/assets/inverter/**/*.{webp,jpg,jpeg,jfif}", {
+  eager: true,
+  import: "default",
+}) as Record<string, string>;
+
+const solarAssetEntries = Object.entries(solarAssetModules).map(([path, src]) => {
+  const fileName = path.split("/").pop() ?? path;
+  return {
+    src: String(src),
+    fileName,
+    normalizedName: normalizeProductText(fileName.replace(/\.[^/.]+$/, "")),
+    folderName: normalizeProductText(path.split("/").slice(-2, -1)[0] ?? ""),
+  };
+});
+
+const inverterAssetEntries = Object.entries(inverterAssetModules).map(([path, src]) => {
+  const fileName = path.split("/").pop() ?? path;
+  return {
+    src: String(src),
+    fileName,
+    normalizedName: normalizeProductText(fileName.replace(/\.[^/.]+$/, "")),
+    folderName: normalizeProductText(path.split("/").slice(-2, -1)[0] ?? ""),
+  };
+});
+
+function resolveProductAsset(product: ProductRecord): string | null {
+  const categoryAssets =
+    product.categoryId === "solar-panels" ? solarAssetEntries :
+    product.categoryId === "solar-inverters" || product.categoryId === "hybrid-inverters" ? inverterAssetEntries :
+    [];
+
+  if (!categoryAssets.length) return null;
+
+  const productKey = normalizeProductText(product.id.replace(/^doc-/, ""));
+  const productName = normalizeProductText(product.name);
+  const brandSlug = normalizeProductText(product.brandId ?? "");
+  const powerTerms = extractPowerTerms(`${product.id} ${product.name}`);
+
+  const exactMatch = categoryAssets.find(
+    (asset) =>
+      asset.normalizedName === productKey ||
+      asset.normalizedName.includes(productKey) ||
+      productKey.includes(asset.normalizedName),
+  );
+
+  if (exactMatch) {
+    return exactMatch.src;
+  }
+
+  const brandPowerMatch = categoryAssets.find((asset) => {
+    const folderMatch =
+      !brandSlug || asset.folderName.includes(brandSlug) || brandSlug.includes(asset.folderName);
+    const powerMatch =
+      powerTerms.length === 0 ||
+      extractPowerTerms(asset.fileName).some((term) => powerTerms.includes(term));
+    const nameMatch =
+      !productName ||
+      asset.normalizedName.includes(productName) ||
+      productName.includes(asset.normalizedName);
+    return (folderMatch && powerMatch) || (folderMatch && nameMatch);
+  });
+
+  return brandPowerMatch?.src ?? null;
+}
+
 const productImages: Record<string, { image: string; alt: string; gallery?: string[] }> = {
   "solar-panels": {
     image: productPanel,
@@ -221,11 +302,21 @@ const categoryProductImages: Record<string, { image: string; alt: string }> = {
 };
 
 export const products: Product[] = productRecords.map((product) => {
-  const media = productImages[product.id] ?? categoryProductImages[product.categoryId];
-  if (!media) {
+  const directAsset = productImages[product.id];
+  const resolvedAsset = directAsset ?? {
+    image: resolveProductAsset(product) ?? categoryProductImages[product.categoryId]?.image ?? productPanel,
+    alt:
+      directAsset?.alt ??
+      categoryProductImages[product.categoryId]?.alt ??
+      `${product.name} product image`,
+  };
+
+  if (!directAsset && !resolvedAsset.image) {
     throw new Error(`Missing image mapping for catalog product "${product.id}".`);
   }
-  return { ...product, ...media };
+
+  const gallery = directAsset?.gallery;
+  return { ...product, ...resolvedAsset, ...(gallery ? { gallery } : {}) };
 });
 
 export function getProductQuoteUrl(product: Product) {
