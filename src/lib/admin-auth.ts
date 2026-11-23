@@ -64,6 +64,14 @@ export function getAdminAccountSummary() {
 }
 
 export function verifyAdminCredentials(identifier: string, password: string) {
+  const envUsername = process.env.ADMIN_USERNAME || "admin";
+  const envEmail = process.env.ADMIN_RECOVERY_EMAIL || process.env.ADMIN_EMAIL;
+  const envPassword = process.env.ADMIN_PASSWORD;
+  const matchesEnvIdentifier =
+    identifier.trim().toLowerCase() === envUsername.toLowerCase() ||
+    Boolean(envEmail && identifier.trim().toLowerCase() === envEmail.toLowerCase());
+  if (envPassword && matchesEnvIdentifier && password === envPassword) return true;
+
   const account = readAdminAccount();
   if (!account) return false;
   const matchesIdentifier =
