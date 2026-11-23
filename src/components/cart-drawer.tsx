@@ -11,9 +11,11 @@ import {
   SheetTrigger,
 } from "./ui/sheet";
 import { toast } from "sonner";
+import { usePublicCatalog } from "@/hooks/use-public-catalog";
 
 export function CartDrawer() {
   const [open, setOpen] = useState(false);
+  const catalog = usePublicCatalog();
   const { items, count, total, setQuantity, removeItem, clearCart } = useCart();
   const orderMessage = [
     "Hello, I would like to order the following products:",
@@ -29,7 +31,8 @@ export function CartDrawer() {
     "",
     "Please confirm availability and order details.",
   ].join("\n");
-  const whatsappUrl = `https://wa.me/${company.whatsappNumber.replace(/\D/g, "")}?text=${encodeURIComponent(orderMessage)}`;
+  const whatsappNumber = catalog?.settings.whatsapp || company.whatsappNumber;
+  const whatsappUrl = `https://wa.me/${whatsappNumber.replace(/\D/g, "")}?text=${encodeURIComponent(orderMessage)}`;
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>

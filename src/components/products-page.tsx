@@ -20,6 +20,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { usePublicCatalog } from "@/hooks/use-public-catalog";
 
 const PRICE_MIN = 1_000;
 const PRICE_MAX = 300_000;
@@ -28,12 +29,25 @@ const PRODUCTS_PER_PAGE = 24;
 type SortOption = "featured" | "latest" | "price-asc" | "price-desc";
 type ListingCategoryId = ShoppingCategoryId | "all";
 
-function getBrandName(brandId?: string) {
-  return brands.find((brand) => brand.id === brandId)?.name ?? brandId;
+function getBrandName(brandId?: string, liveBrands?: { id: string; name: string }[]) {
+  return (liveBrands || brands).find((brand) => brand.id === brandId)?.name ?? brandId;
 }
 
-function ProductTile({ product, onAdd }: { product: Product; onAdd: () => void }) {
-  const brand = getBrandName(product.brandId);
+function ProductTile({
+  product,
+  onAdd,
+  liveBrands,
+  liveCategories,
+}: {
+  product: Product;
+  onAdd: () => void;
+  liveBrands?: { id: string; name: string }[];
+  liveCategories?: { id: string; label: string }[];
+}) {
+  const brand = getBrandName(product.brandId, liveBrands);
+  const categoryLabel =
+    liveCategories?.find((category) => category.id === product.categoryId)?.label ||
+    getProductCategoryLabel(product.categoryId);
 
   return (
     <article className="group flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-border/80 bg-white transition duration-300 hover:-translate-y-1 hover:border-primary/35 hover:shadow-[var(--shadow-elegant)]">
@@ -48,7 +62,7 @@ function ProductTile({ product, onAdd }: { product: Product; onAdd: () => void }
           className="transition-transform duration-500 ease-out group-hover:scale-[1.04]"
         />
         <span className="absolute left-3 top-3 rounded-full border border-slate-200 bg-white/95 px-2.5 py-1 text-[10px] font-semibold text-slate-600 shadow-sm">
-          {getProductCategoryLabel(product.categoryId)}
+          {categoryLabel}
         </span>
       </Link>
       <div className="flex flex-1 flex-col p-3.5 sm:p-5">
@@ -245,6 +259,10 @@ export function ProductsPageContent({
   initialBrandId?: string;
 }) {
   const { addItem } = useCart();
+  const publicCatalog = usePublicCatalog();
+  const liveBrands = publicCatalog?.brands;
+  const liveCategories = publicCatalog?.categories;
+  const [liveProducts, setLiveProducts] = useState<Product[]>(products);
   const [selectedBrands, setSelectedBrands] = useState<string[]>(() =>
     initialBrandId ? [initialBrandId] : [],
   );
@@ -261,10 +279,33 @@ export function ProductsPageContent({
     setSelectedBrands(initialBrandId ? [initialBrandId] : []);
   }, [initialBrandId]);
 
+  useEffect(() => {
+    fetch("/api/products")
+      .then((response) =>
+        response.ok ? response.json() : Promise.reject(new Error("Catalog unavailable")),
+      )
+      .then((records: Product[]) => {
+        setLiveProducts(
+          records.map((record) => {
+            const existing = products.find((product) => product.id === record.id);
+            return existing
+              ? {
+                  ...existing,
+                  ...record,
+                  image: record.image || existing.image,
+                  alt: record.alt || existing.alt,
+                }
+              : record;
+          }),
+        );
+      })
+      .catch(() => setLiveProducts(products));
+  }, []);
+
   const category = shoppingCategories.find((entry) => entry.id === categoryId);
   const categoryProducts = useMemo(
-    () => (category ? getShoppingCategoryProducts(category.id, products) : products),
-    [category],
+    () => (category ? getShoppingCategoryProducts(category.id, liveProducts) : liveProducts),
+    [category, liveProducts],
   );
   const availableBrands = useMemo(() => {
     const counts = new Map<string, number>();
@@ -503,6 +544,8 @@ export function ProductsPageContent({
                   <ProductTile
                     key={product.id}
                     product={product}
+                    liveBrands={liveBrands}
+                    liveCategories={liveCategories}
                     onAdd={() => {
                       addItem(product);
                       toast.success("Added to cart");

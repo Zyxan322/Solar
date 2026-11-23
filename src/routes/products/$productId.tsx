@@ -2,10 +2,17 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowUpRight, Minus, Plus } from "lucide-react";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
-import { brands, getProductCategoryLabel, getProductQuoteUrl, products } from "@/data/site";
+import {
+  brands,
+  getProductCategoryLabel,
+  getProductQuoteUrl,
+  products,
+  type Product,
+} from "@/data/site";
 import { getProductPageImage } from "@/data/product-page-media";
 import { ProductImage } from "@/components/product-image";
 import { useCart, formatPrice } from "@/components/cart-context";
+import { usePublicCatalog } from "@/hooks/use-public-catalog";
 
 export const Route = createFileRoute("/products/$productId")({
   component: ProductDetailsPage,
@@ -30,7 +37,29 @@ export const Route = createFileRoute("/products/$productId")({
 
 function ProductDetailsPage() {
   const { productId } = Route.useParams();
-  const product = products.find((entry) => entry.id === productId);
+  const publicCatalog = usePublicCatalog();
+  const [liveProduct, setLiveProduct] = useState<Product | undefined>(
+    products.find((entry) => entry.id === productId),
+  );
+  useEffect(() => {
+    fetch("/api/products")
+      .then((response) =>
+        response.ok ? response.json() : Promise.reject(new Error("Catalog unavailable")),
+      )
+      .then((records: Product[]) => {
+        const record = records.find((entry) => entry.id === productId);
+        if (!record) {
+          setLiveProduct(undefined);
+          return;
+        }
+        const existing = products.find((entry) => entry.id === productId);
+        setLiveProduct(
+          existing ? { ...existing, ...record, image: record.image || existing.image } : record,
+        );
+      })
+      .catch(() => setLiveProduct(products.find((entry) => entry.id === productId)));
+  }, [productId]);
+  const product = liveProduct;
   const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
@@ -61,7 +90,12 @@ function ProductDetailsPage() {
     );
   }
 
-  const brand = brands.find((entry) => entry.id === product.brandId);
+  const brand =
+    publicCatalog?.brands.find((entry) => entry.id === product.brandId) ||
+    brands.find((entry) => entry.id === product.brandId);
+  const categoryLabel =
+    publicCatalog?.categories.find((entry) => entry.id === product.categoryId)?.label ||
+    getProductCategoryLabel(product.categoryId);
   const primaryImage = getProductPageImage(product.id, product.image);
   const gallery = [primaryImage, ...(product.gallery ?? [])];
   const activeImage = gallery[selectedImage] ?? primaryImage;
@@ -115,7 +149,7 @@ function ProductDetailsPage() {
                   /
                 </span>
               ) : null}
-              <span>{getProductCategoryLabel(product.categoryId)}</span>
+              <span>{categoryLabel}</span>
             </div>
             <h1 className="mt-3 font-display text-3xl leading-tight font-semibold tracking-tight sm:text-4xl">
               {product.name}

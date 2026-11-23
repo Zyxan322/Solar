@@ -3,6 +3,7 @@ import { company, serviceOptions } from "@/data/site";
 import { SectionHeading } from "./ui/section-heading";
 import { Reveal } from "./ui/reveal";
 import { MagneticButton } from "./ui/magnetic-button";
+import { usePublicCatalog } from "@/hooks/use-public-catalog";
 
 const fieldClass =
   "peer w-full rounded-xl border border-border bg-surface/50 px-4 pt-6 pb-2 text-sm text-foreground outline-none transition-all duration-300 [transition-timing-function:var(--ease-cinema)] focus:border-primary/60 focus:bg-surface-2/60 focus:shadow-[var(--shadow-glow)]";
@@ -11,6 +12,13 @@ const labelClass =
 
 export function Contact() {
   const [sent, setSent] = useState(false);
+  const catalog = usePublicCatalog();
+  const settings = catalog?.settings;
+  const companyName = settings?.companyName || company.name;
+  const tagline = settings?.tagline || company.tagline;
+  const phone = settings?.phone || company.phone;
+  const additionalPhone = settings?.additionalPhone || company.additionalPhone;
+  const email = settings?.email || company.email;
 
   return (
     <section
@@ -26,42 +34,46 @@ export function Contact() {
       <div className="mx-auto mt-16 grid max-w-7xl gap-8 px-5 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
         <Reveal>
           <div className="glass glow-border card-3d h-full rounded-3xl p-8">
-            <h3 className="font-display text-xl font-semibold">Reinvent Energies</h3>
-            <p className="mt-2 text-sm text-muted-foreground">{company.tagline}</p>
+            <h3 className="font-display text-xl font-semibold">{companyName}</h3>
+            <p className="mt-2 text-sm text-muted-foreground">{tagline}</p>
 
             <dl className="mt-8 space-y-6 text-sm">
               <div>
                 <dt className="text-[0.68rem] tracking-[0.2em] text-primary uppercase">
                   Head Office
                 </dt>
-                <dd className="mt-1.5 text-muted-foreground">{company.headOfficeAddress}</dd>
+                <dd className="mt-1.5 text-muted-foreground">
+                  {settings?.headOfficeAddress || company.headOfficeAddress}
+                </dd>
               </div>
               <div>
                 <dt className="text-[0.68rem] tracking-[0.2em] text-primary uppercase">
                   Sub Office
                 </dt>
-                <dd className="mt-1.5 text-muted-foreground">{company.address}</dd>
+                <dd className="mt-1.5 text-muted-foreground">
+                  {settings?.address || company.address}
+                </dd>
               </div>
               <div>
                 <dt className="text-[0.68rem] tracking-[0.2em] text-primary uppercase">Phone</dt>
                 <dd className="mt-1.5">
-                  <a href={company.phoneHref} className="nav-link text-foreground">
-                    {company.phone}
+                  <a href={`tel:${phone.replace(/\D/g, "")}`} className="nav-link text-foreground">
+                    {phone}
                   </a>
                   <br />
-                  <a href={company.additionalPhoneHref} className="nav-link text-foreground">
-                    {company.additionalPhone}
+                  <a
+                    href={`tel:${additionalPhone.replace(/\D/g, "")}`}
+                    className="nav-link text-foreground"
+                  >
+                    {additionalPhone}
                   </a>
                 </dd>
               </div>
               <div>
                 <dt className="text-[0.68rem] tracking-[0.2em] text-primary uppercase">Email</dt>
                 <dd className="mt-1.5">
-                  <a
-                    href={`mailto:${company.email}`}
-                    className="nav-link break-all text-foreground"
-                  >
-                    {company.email}
+                  <a href={`mailto:${email}`} className="nav-link break-all text-foreground">
+                    {email}
                   </a>
                 </dd>
               </div>
@@ -158,8 +170,8 @@ export function Contact() {
               <MagneticButton type="submit">Request a Consultation</MagneticButton>
               {sent ? (
                 <p className="text-sm text-primary" role="status">
-                  Thank you — we&apos;ll be in touch shortly. You can also call {company.phone} or{" "}
-                  {company.additionalPhone}.
+                  Thank you — we&apos;ll be in touch shortly. You can also call {phone} or{" "}
+                  {additionalPhone}.
                 </p>
               ) : null}
             </div>

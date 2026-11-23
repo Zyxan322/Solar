@@ -21,6 +21,19 @@ npm i
 npm run dev
 ```
 
+## Admin account and Gmail verification
+
+Copy `.env.example` to `.env` for local development and set a strong `ADMIN_PASSWORD`.
+The first successful admin sign-in initializes the server-side account file with a salted
+scrypt password hash. The default login username is `admin`; the configured admin email
+also works as the login identifier.
+
+To send account-change verification codes through Gmail, enable 2-Step Verification on
+the sender account, create a Google App Password, then set `SMTP_USER` and
+`SMTP_APP_PASSWORD` in the server environment. Set `ADMIN_RECOVERY_EMAIL` to the inbox
+that should receive the one-time codes. Never expose SMTP credentials in client-side
+variables or commit them to source control.
+
 ## Built with
 
 - TanStack Start

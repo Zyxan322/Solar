@@ -2,12 +2,21 @@ import { Link } from "@tanstack/react-router";
 import { Facebook, Instagram } from "lucide-react";
 import logo from "@/assets/logo.jpg";
 import { company, navigation, products } from "@/data/site";
+import { usePublicCatalog } from "@/hooks/use-public-catalog";
 
 const footerLinkClass =
   "inline-flex w-fit text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground focus-visible:text-foreground";
 
 export function Footer() {
   const footerNavigation = navigation.filter((item) => item.label !== "Shop");
+  const catalog = usePublicCatalog();
+  const settings = catalog?.settings;
+  const companyName = settings?.companyName || company.name;
+  const phone = settings?.phone || company.phone;
+  const additionalPhone = settings?.additionalPhone || company.additionalPhone;
+  const email = settings?.email || company.email;
+  const address = settings?.address || company.address;
+  const headOfficeAddress = settings?.headOfficeAddress || company.headOfficeAddress;
 
   return (
     <footer className="section-dark relative border-t border-border/70">
@@ -15,13 +24,13 @@ export function Footer() {
         <div>
           <Link
             to="/"
-            aria-label={`${company.name} home`}
+            aria-label={`${companyName} home`}
             className="group inline-flex items-center gap-3"
           >
             <span className="grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-full bg-white ring-1 ring-primary/30">
               <img
                 src={logo}
-                alt={`${company.name} logo`}
+                alt={`${companyName} logo`}
                 width={48}
                 height={48}
                 className="h-full w-full object-contain"
@@ -43,7 +52,7 @@ export function Footer() {
           </Link>
           <div className="mt-6 flex items-center gap-2">
             <a
-              href="https://www.facebook.com/profile.php?id=61571068754603"
+              href={settings?.facebook || "https://www.facebook.com/profile.php?id=61571068754603"}
               target="_blank"
               rel="noreferrer"
               aria-label="Reinvent Energies on Facebook"
@@ -52,7 +61,7 @@ export function Footer() {
               <Facebook className="h-[18px] w-[18px]" aria-hidden="true" />
             </a>
             <a
-              href="https://www.instagram.com/reinventenergies1?stkn=bHljMGN0ZjA3OHY2"
+              href={settings?.instagram || "https://www.instagram.com/reinventenergies1"}
               target="_blank"
               rel="noreferrer"
               aria-label="Reinvent Energies on Instagram"
@@ -101,25 +110,23 @@ export function Footer() {
             <span className="text-[0.65rem] font-semibold tracking-[0.14em] text-gold uppercase">
               Head Office
             </span>
-            <p className="mt-1 leading-relaxed text-muted-foreground">
-              {company.headOfficeAddress}
-            </p>
+            <p className="mt-1 leading-relaxed text-muted-foreground">{headOfficeAddress}</p>
           </div>
           <div>
             <span className="text-[0.65rem] font-semibold tracking-[0.14em] text-gold uppercase">
               Sub Office
             </span>
-            <p className="mt-1 leading-relaxed text-muted-foreground">{company.address}</p>
+            <p className="mt-1 leading-relaxed text-muted-foreground">{address}</p>
           </div>
           <div className="flex flex-col items-start gap-1">
-            <a href={company.phoneHref} className={footerLinkClass}>
-              {company.phone}
+            <a href={`tel:${phone.replace(/\D/g, "")}`} className={footerLinkClass}>
+              {phone}
             </a>
-            <a href={company.additionalPhoneHref} className={footerLinkClass}>
-              {company.additionalPhone}
+            <a href={`tel:${additionalPhone.replace(/\D/g, "")}`} className={footerLinkClass}>
+              {additionalPhone}
             </a>
-            <a href={`mailto:${company.email}`} className={footerLinkClass}>
-              {company.email}
+            <a href={`mailto:${email}`} className={footerLinkClass}>
+              {email}
             </a>
           </div>
         </address>

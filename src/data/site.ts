@@ -12,10 +12,17 @@ import productBattery from "@/assets/product-battery.jpg";
 import productMounting from "@/assets/product-mounting.jpg";
 import productAccessories from "@/assets/product-accessories.svg";
 import productVfd from "@/assets/product-vfd.svg";
-import {
-  getChintCircuitImage,
-  getMoraCircuitImage,
-} from "./product-assets";
+import dcBreaker20 from "@/assets/chint/WhatsApp Image 2026-11-04 at 9.26.21 AM.jpeg";
+import dcBreaker25 from "@/assets/chint/WhatsApp Image 2026-11-04 at 9.26.22 AM.jpeg";
+import dcBreaker32 from "@/assets/chint/WhatsApp Image 2026-11-04 at 9.26.23 AM (1).jpeg";
+import acBreaker63SinglePole from "@/assets/chint/WhatsApp Image 2026-11-04 at 9.26.25 AM.jpeg";
+import acBreaker63FourPole from "@/assets/chint/WhatsApp Image 2026-11-04 at 9.26.26 AM.jpeg";
+import chintNxb63TwoPole from "@/assets/chint/WhatsApp Image 2026-11-04 at 9.26.21 AM.jpeg";
+import chintNxb63TwoPoleAlt from "@/assets/chint/WhatsApp Image 2026-11-04 at 9.26.22 AM.jpeg";
+import chintNxb63TwoPoleDetail from "@/assets/chint/WhatsApp Image 2026-11-04 at 9.26.26 AM.jpeg";
+import moraAesC63Breakers from "@/assets/mora circuit/WhatsApp Image 2026-11-04 at 9.26.33 AM.jpeg";
+import moraAesC63BreakersAlt from "@/assets/mora circuit/WhatsApp Image 2026-11-04 at 9.26.42 AM.jpeg";
+import moraSurgeProtection from "@/assets/mora circuit/WhatsApp Image 2026-11-04 at 9.26.32 AM.jpeg";
 import aboutImage from "@/assets/about.jpg";
 
 export const company = {
@@ -130,8 +137,13 @@ const normalizeProductText = (value: string) =>
     .replace(/\s+/g, " ")
     .trim();
 
-const extractPowerTerms = (value: string) =>
-  [...new Set((value.match(/\d+(?:[.,]\d+)?\s*(?:kw|w)/gi) ?? []).map((term) => term.replace(/\s+/g, "").toLowerCase()))];
+const extractPowerTerms = (value: string) => [
+  ...new Set(
+    (value.match(/\d+(?:[.,]\d+)?\s*(?:kw|w)/gi) ?? []).map((term) =>
+      term.replace(/\s+/g, "").toLowerCase(),
+    ),
+  ),
+];
 
 const solarAssetModules = import.meta.glob("/src/assets/Solar/**/*.{webp,jpg,jpeg,jfif}", {
   eager: true,
@@ -165,9 +177,11 @@ const inverterAssetEntries = Object.entries(inverterAssetModules).map(([path, sr
 
 function resolveProductAsset(product: ProductRecord): string | null {
   const categoryAssets =
-    product.categoryId === "solar-panels" ? solarAssetEntries :
-    product.categoryId === "solar-inverters" || product.categoryId === "hybrid-inverters" ? inverterAssetEntries :
-    [];
+    product.categoryId === "solar-panels"
+      ? solarAssetEntries
+      : product.categoryId === "solar-inverters" || product.categoryId === "hybrid-inverters"
+        ? inverterAssetEntries
+        : [];
 
   if (!categoryAssets.length) return null;
 
@@ -221,156 +235,38 @@ const productImages: Record<string, { image: string; alt: string; gallery?: stri
     alt: "Aluminium solar panel mounting rails, clamps and brackets",
   },
   "chint-nb1-63dc-c20a": {
-    image: getChintCircuitImage("WhatsApp Image 2026-11-04 at 9.26.23 AM (1).jpeg"),
+    image: dcBreaker20,
     alt: "CHINT NB1-63DC C20A two-pole solar DC circuit breaker",
   },
   "chint-nb1-63dc-c25a": {
-    image: getChintCircuitImage("WhatsApp Image 2026-11-04 at 9.26.22 AM.jpeg"),
+    image: dcBreaker25,
     alt: "CHINT NB1-63DC C25A two-pole solar DC circuit breaker",
   },
   "chint-nb1-63dc-c32a": {
-    image: getChintCircuitImage("WhatsApp Image 2026-11-04 at 9.26.26 AM.jpeg"),
+    image: dcBreaker32,
     alt: "CHINT NB1-63DC C32A two-pole solar DC circuit breaker",
   },
   "chint-nxb-63-c63-single-pole": {
-    image: getChintCircuitImage("WhatsApp Image 2026-11-04 at 9.26.22 AM (1).jpeg"),
+    image: acBreaker63SinglePole,
     alt: "CHINT NXB-63 C63 single-pole AC circuit breaker",
   },
   "chint-nxb-63-c63-four-pole": {
-    image: getChintCircuitImage("WhatsApp Image 2026-11-04 at 9.26.25 AM.jpeg"),
+    image: acBreaker63FourPole,
     alt: "CHINT NXB-63 C63 four-pole AC circuit breaker",
   },
   "chint-nxb-63-c63-two-pole": {
-    image: getChintCircuitImage("WhatsApp Image 2026-11-04 at 9.26.21 AM.jpeg"),
+    image: chintNxb63TwoPole,
     alt: "CHINT NXB-63 C63 two-pole AC circuit breaker",
-    gallery: [
-      getChintCircuitImage("WhatsApp Image 2026-11-04 at 9.26.22 AM.jpeg"),
-      getChintCircuitImage("WhatsApp Image 2026-11-04 at 9.26.26 AM.jpeg"),
-    ],
+    gallery: [chintNxb63TwoPoleAlt, chintNxb63TwoPoleDetail],
   },
   "mora-aes-c63-breakers": {
-    image: getMoraCircuitImage("AES C63.png"),
-    alt: "MORA AES C63 AC miniature circuit breaker",
-    gallery: [
-      getMoraCircuitImage("WhatsApp Image 2026-11-04 at 9.26.33 AM.jpeg"),
-      getMoraCircuitImage("WhatsApp Image 2026-11-04 at 9.26.42 AM.jpeg"),
-    ],
-  },
-  "mora-aes-988-63a": {
-    image: getMoraCircuitImage("AES-988 63A.png"),
-    alt: "MORA AES-988 63A AC circuit breaker",
-  },
-  "mora-aes-dc-c63": {
-    image: getMoraCircuitImage("AES-DC C63.png"),
-    alt: "MORA AES-DC C63 two-pole DC circuit breaker",
-  },
-  "mora-afs-125-dc-c125": {
-    image: getMoraCircuitImage("AFS-125-DC C125.png"),
-    alt: "MORA AFS-125-DC C125 two-pole 1000V DC circuit breaker",
+    image: moraAesC63Breakers,
+    alt: "MORA AES C63 circuit breakers",
+    gallery: [moraAesC63BreakersAlt],
   },
   "mora-aes-20dcpv-1000v": {
-    image: getMoraCircuitImage("WhatsApp Image 2026-11-04 at 9.26.32 AM.jpeg"),
+    image: moraSurgeProtection,
     alt: "MORA AES-20DCPV/1000V photovoltaic DC surge protection device",
-  },
-  "mora-10-in-1-wifi-new-model": {
-    image: getMoraCircuitImage("10 IN 1 WIFI NEW MODEL.png"),
-    alt: "MORA 10-in-1 Wi-Fi smart protection device",
-  },
-  "mora-100a-breaker": {
-    image: getMoraCircuitImage("100a.png"),
-    alt: "MORA 100A circuit breaker",
-  },
-  "mora-125a-breaker-changeover": {
-    image: getMoraCircuitImage("125A BREAKER TYPE CHANGE OVER.png"),
-    alt: "MORA 125A breaker-type changeover switch",
-  },
-  "mora-160a-breaker": {
-    image: getMoraCircuitImage("160A.png"),
-    alt: "MORA 160A circuit breaker",
-  },
-  "mora-2-pole-ac-spd": {
-    image: getMoraCircuitImage("2 POLE AC SPD.png"),
-    alt: "MORA two-pole AC surge protection device",
-  },
-  "mora-2-pole-dc-spd": {
-    image: getMoraCircuitImage("2 POLE DC SPD.png"),
-    alt: "MORA two-pole DC surge protection device",
-  },
-  "mora-22mm-led-indicator": {
-    image: getMoraCircuitImage("22mm LED INDICATOR.png"),
-    alt: "MORA 22 mm LED indicator light",
-  },
-  "mora-4-pole-breaker": {
-    image: getMoraCircuitImage("4 POLE.png"),
-    alt: "MORA four-pole circuit breaker",
-  },
-  "mora-63a-elcb-2-pole": {
-    image: getMoraCircuitImage("63 AMPERE ELCB 2 POLE.png"),
-    alt: "MORA 63A two-pole ELCB",
-  },
-  "mora-ac-spd": {
-    image: getMoraCircuitImage("AC SPD.png"),
-    alt: "MORA AC surge protection device",
-  },
-  "mora-current-voltage-display": {
-    image: getMoraCircuitImage("CURRENT AND VOLTAGE REAL-TIMEDISPLAY.png"),
-    alt: "MORA real-time current and voltage display",
-  },
-  "mora-digital-time-switch": {
-    image: getMoraCircuitImage("Digital Time Switch MOD.png"),
-    alt: "MORA digital time switch module",
-  },
-  "mora-fire-extinguisher-ball": {
-    image: getMoraCircuitImage("Fire Extinguisher Ball.png"),
-    alt: "MORA fire extinguisher ball",
-  },
-  "mora-fire-extinguisher-device": {
-    image: getMoraCircuitImage("Fire Extinguisher Device.png"),
-    alt: "MORA automatic fire extinguisher device",
-  },
-  "mora-grand-aes-968": {
-    image: getMoraCircuitImage("Grand AES-968.png"),
-    alt: "MORA Grand AES-968 circuit breaker",
-  },
-  "mora-mccb-4-pole": {
-    image: getMoraCircuitImage("MCCB MOLDED CASE CIRCUIT BREAKER 4 POLE.png"),
-    alt: "MORA four-pole molded case circuit breaker",
-  },
-  "mora-mccb": {
-    image: getMoraCircuitImage("MCCB MOLDED CASE CIRCUIT BREAKER.png"),
-    alt: "MORA molded case circuit breaker",
-  },
-  "mora-molded-case-breaker": {
-    image: getMoraCircuitImage("Molded Case Circuit Breaker.png"),
-    alt: "MORA molded case circuit breaker",
-  },
-  "mora-aes-c63-alternate": {
-    image: getMoraCircuitImage("MORA AES C63.png"),
-    alt: "MORA AES C63 circuit breaker, alternate configuration",
-  },
-  "mora-ats": {
-    image: getMoraCircuitImage("MORA ATS.png"),
-    alt: "MORA automatic transfer switch",
-  },
-  "mora-changeover-relay-120a": {
-    image: getMoraCircuitImage("MORA CHANGE OVER RELAY 120A.png"),
-    alt: "MORA 120A changeover relay",
-  },
-  "mora-smart-10-in-1": {
-    image: getMoraCircuitImage("MORA SMART 10 IN 1WIEL.png"),
-    alt: "MORA Smart 10-in-1 protection device",
-  },
-  "mora-sub-meter-4-pole": {
-    image: getMoraCircuitImage("MORA SUB METER 4 POLE.png"),
-    alt: "MORA four-pole sub meter",
-  },
-  "mora-mini-digital-meter": {
-    image: getMoraCircuitImage("MORAMini Digital Meter Voltage & Current.png"),
-    alt: "MORA mini digital voltage and current meter",
-  },
-  "mora-pg-gland": {
-    image: getMoraCircuitImage("PG GLAND.png"),
-    alt: "MORA PG cable gland",
   },
 };
 
@@ -400,7 +296,10 @@ const categoryProductImages: Record<string, { image: string; alt: string }> = {
 export const products: Product[] = productRecords.map((product) => {
   const directAsset = productImages[product.id];
   const resolvedAsset = directAsset ?? {
-    image: resolveProductAsset(product) ?? categoryProductImages[product.categoryId]?.image ?? productPanel,
+    image:
+      resolveProductAsset(product) ??
+      categoryProductImages[product.categoryId]?.image ??
+      productPanel,
     alt:
       directAsset?.alt ??
       categoryProductImages[product.categoryId]?.alt ??

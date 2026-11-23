@@ -13,11 +13,9 @@ import { ProductCard } from "./product-card";
 export function ProductShowcase({
   layout = "grid",
   featuredLimit,
-  hiddenCategoryIds = [],
 }: {
   layout?: "carousel" | "grid";
   featuredLimit?: number;
-  hiddenCategoryIds?: readonly string[];
 }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -26,10 +24,7 @@ export function ProductShowcase({
   const [currentPage, setCurrentPage] = useState(1);
   const { addItem } = useCart();
   const isGrid = layout === "grid";
-  const categories = [
-    { id: "all", label: "All Products" },
-    ...productCategories.filter((category) => !hiddenCategoryIds.includes(category.id)),
-  ];
+  const categories = [{ id: "all", label: "All Products" }, ...productCategories];
   const visibleProducts =
     selectedCategory === "all"
       ? products
@@ -160,7 +155,6 @@ export function ProductShowcase({
           >
             <ProductCard
               product={product}
-              showCategory={!hiddenCategoryIds.includes(product.categoryId)}
               onView={() => {
                 setSelectedProduct(product);
                 setDetailQuantity(1);

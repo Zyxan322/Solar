@@ -9,8 +9,11 @@ import { MagneticButton } from "./ui/magnetic-button";
 import { CartDrawer } from "./cart-drawer";
 import logo from "@/assets/logo.jpg";
 import { cn } from "@/lib/utils";
+import { usePublicCatalog } from "@/hooks/use-public-catalog";
 
 export function Navbar() {
+  const catalog = usePublicCatalog();
+  const companyName = catalog?.settings.companyName || company.name;
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
@@ -53,14 +56,6 @@ export function Navbar() {
       setActiveProduct(null);
       closeTimer.current = null;
     }, 180);
-  };
-
-  const closeProductMenu = () => {
-    if (closeTimer.current !== null) window.clearTimeout(closeTimer.current);
-    closeTimer.current = null;
-    setActiveCategory(null);
-    setActiveCompany(null);
-    setActiveProduct(null);
   };
 
   useEffect(() => {
@@ -118,12 +113,12 @@ export function Navbar() {
           <Link
             to="/"
             className="group flex min-w-0 shrink-0 items-center gap-2.5"
-            aria-label={`${company.name} home`}
+            aria-label={`${companyName} home`}
           >
             <span className="grid h-14 w-14 shrink-0 place-items-center overflow-hidden rounded-full bg-white ring-1 ring-primary/30 transition-colors duration-250 group-hover:ring-primary/60">
               <img
                 src={logo}
-                alt={`${company.name} logo`}
+                alt={`${companyName} logo`}
                 width={56}
                 height={56}
                 className="h-full w-full object-contain"
@@ -167,7 +162,6 @@ export function Navbar() {
                               aria-haspopup="true"
                               aria-expanded={activeCategory === category.id}
                               aria-controls="category-mega-menu"
-                              onClick={closeProductMenu}
                               onFocus={() => openCategoryMenu(category.id)}
                               className={cn(
                                 "nav-link inline-flex items-center gap-1 text-muted-foreground transition-colors duration-250 hover:text-foreground",
@@ -202,10 +196,8 @@ export function Navbar() {
                       <ul className="mt-3 space-y-1">
                         {selectedCategory.companies.map((companyEntry) => (
                           <li key={companyEntry.id}>
-                            <Link
-                              to="/products"
-                              search={{ brand: companyEntry.id }}
-                              onClick={closeProductMenu}
+                            <button
+                              type="button"
                               onMouseEnter={() => {
                                 setActiveCompany(companyEntry.id);
                                 setActiveProduct(companyEntry.products[0]?.id ?? null);
@@ -227,13 +219,12 @@ export function Navbar() {
                               <span className="shrink-0 text-xs text-slate-400">
                                 {companyEntry.products.length}
                               </span>
-                            </Link>
+                            </button>
                           </li>
                         ))}
                       </ul>
                       <Link
                         to={selectedCategory.href}
-                        onClick={closeProductMenu}
                         className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-emerald-800 hover:text-emerald-950"
                       >
                         View all {selectedCategory.label.toLowerCase()}
@@ -251,7 +242,6 @@ export function Navbar() {
                               <Link
                                 to="/products/$productId"
                                 params={{ productId: product.id }}
-                                onClick={closeProductMenu}
                                 onMouseEnter={() => setActiveProduct(product.id)}
                                 onFocus={() => setActiveProduct(product.id)}
                                 className={cn(
@@ -284,7 +274,6 @@ export function Navbar() {
                           <Link
                             to="/products/$productId"
                             params={{ productId: selectedProduct.id }}
-                            onClick={closeProductMenu}
                             className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-emerald-800 hover:text-emerald-950"
                           >
                             View product details
@@ -330,13 +319,13 @@ export function Navbar() {
           <Link
             to="/"
             onClick={() => setOpen(false)}
-            aria-label={`${company.name} home`}
+            aria-label={`${companyName} home`}
             className="inline-flex items-center gap-3"
           >
             <span className="grid h-13 w-13 place-items-center overflow-hidden rounded-full bg-white ring-1 ring-primary/30">
               <img
                 src={logo}
-                alt={`${company.name} logo`}
+                alt={`${companyName} logo`}
                 width={52}
                 height={52}
                 className="h-full w-full object-contain"
@@ -406,33 +395,23 @@ export function Navbar() {
                                 const companyExpanded = expandedCompanies.has(companyKey);
                                 return (
                                   <li key={companyKey}>
-                                    <div className="flex min-h-10 items-center justify-between gap-3 rounded-lg px-3 text-sm font-semibold text-foreground hover:bg-white/10">
-                                      <Link
-                                        to="/products"
-                                        search={{ brand: companyEntry.id }}
-                                        onClick={() => setOpen(false)}
-                                        className="flex-1 py-2"
-                                      >
-                                        {companyEntry.name}
-                                      </Link>
-                                      <button
-                                        type="button"
-                                        aria-label={`${companyExpanded ? "Hide" : "Show"} ${companyEntry.name} products`}
-                                        aria-expanded={companyExpanded}
-                                        onClick={() =>
-                                          toggleExpanded(setExpandedCompanies, companyKey)
-                                        }
-                                        className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-border"
-                                      >
-                                        <ChevronDown
-                                          aria-hidden="true"
-                                          className={cn(
-                                            "h-4 w-4 transition-transform",
-                                            companyExpanded && "rotate-180",
-                                          )}
-                                        />
-                                      </button>
-                                    </div>
+                                    <button
+                                      type="button"
+                                      aria-expanded={companyExpanded}
+                                      onClick={() =>
+                                        toggleExpanded(setExpandedCompanies, companyKey)
+                                      }
+                                      className="flex min-h-10 w-full items-center justify-between gap-3 rounded-lg px-3 text-left text-sm font-semibold text-foreground hover:bg-white/10"
+                                    >
+                                      <span>{companyEntry.name}</span>
+                                      <ChevronDown
+                                        aria-hidden="true"
+                                        className={cn(
+                                          "h-4 w-4 shrink-0 transition-transform",
+                                          companyExpanded && "rotate-180",
+                                        )}
+                                      />
+                                    </button>
                                     {companyExpanded ? (
                                       <ul className="ml-3 border-l border-border/60 pl-3">
                                         {companyEntry.products.map((product) => {

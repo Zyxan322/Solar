@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as BreakersRouteImport } from './routes/breakers'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -22,8 +23,16 @@ import { Route as ShopRouteImport } from './routes/shop'
 import { Route as SolarPanelsRouteImport } from './routes/solar-panels'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as ApiCatalogRouteImport } from './routes/api/catalog'
+import { Route as ApiProductsRouteImport } from './routes/api/products'
 import { Route as ProductsProductIdRouteImport } from './routes/products/$productId'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as ApiAdminAccountRouteImport } from './routes/api/admin/account'
+import { Route as ApiAdminCatalogRouteImport } from './routes/api/admin/catalog'
+import { Route as ApiAdminPasswordResetRouteImport } from './routes/api/admin/password-reset'
+import { Route as ApiAdminProductsRouteImport } from './routes/api/admin/products'
+import { Route as ApiAdminSessionRouteImport } from './routes/api/admin/session'
+import { Route as ApiAdminProductsProductIdRouteImport } from './routes/api/admin/products/$productId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -33,6 +42,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogRoute = BlogRouteImport.update({
@@ -92,6 +106,16 @@ const Char91DotwellKnownChar93OauthProtectedResourceRoute =
     path: '/.well-known/oauth-protected-resource',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiCatalogRoute = ApiCatalogRouteImport.update({
+  id: '/api/catalog',
+  path: '/api/catalog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiProductsRoute = ApiProductsRouteImport.update({
+  id: '/api/products',
+  path: '/api/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductsProductIdRoute = ProductsProductIdRouteImport.update({
   id: '/$productId',
   path: '/$productId',
@@ -103,10 +127,42 @@ const Char91DotmcpChar93InvokeToolToolRoute =
     path: '/.mcp/invoke-tool/$tool',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiAdminAccountRoute = ApiAdminAccountRouteImport.update({
+  id: '/api/admin/account',
+  path: '/api/admin/account',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAdminCatalogRoute = ApiAdminCatalogRouteImport.update({
+  id: '/api/admin/catalog',
+  path: '/api/admin/catalog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAdminPasswordResetRoute = ApiAdminPasswordResetRouteImport.update({
+  id: '/api/admin/password-reset',
+  path: '/api/admin/password-reset',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAdminProductsRoute = ApiAdminProductsRouteImport.update({
+  id: '/api/admin/products',
+  path: '/api/admin/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAdminSessionRoute = ApiAdminSessionRouteImport.update({
+  id: '/api/admin/session',
+  path: '/api/admin/session',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAdminProductsProductIdRoute =
+  ApiAdminProductsProductIdRouteImport.update({
+    id: '/$productId',
+    path: '/$productId',
+    getParentRoute: () => ApiAdminProductsRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
   '/blog': typeof BlogRoute
   '/breakers': typeof BreakersRoute
   '/contact': typeof ContactRoute
@@ -118,12 +174,21 @@ export interface FileRoutesByFullPath {
   '/solar-panels': typeof SolarPanelsRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/api/catalog': typeof ApiCatalogRoute
+  '/api/products': typeof ApiProductsRoute
   '/products/$productId': typeof ProductsProductIdRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
+  '/api/admin/account': typeof ApiAdminAccountRoute
+  '/api/admin/catalog': typeof ApiAdminCatalogRoute
+  '/api/admin/password-reset': typeof ApiAdminPasswordResetRoute
+  '/api/admin/products': typeof ApiAdminProductsRouteWithChildren
+  '/api/admin/session': typeof ApiAdminSessionRoute
+  '/api/admin/products/$productId': typeof ApiAdminProductsProductIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
   '/blog': typeof BlogRoute
   '/breakers': typeof BreakersRoute
   '/contact': typeof ContactRoute
@@ -135,13 +200,22 @@ export interface FileRoutesByTo {
   '/solar-panels': typeof SolarPanelsRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/api/catalog': typeof ApiCatalogRoute
+  '/api/products': typeof ApiProductsRoute
   '/products/$productId': typeof ProductsProductIdRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
+  '/api/admin/account': typeof ApiAdminAccountRoute
+  '/api/admin/catalog': typeof ApiAdminCatalogRoute
+  '/api/admin/password-reset': typeof ApiAdminPasswordResetRoute
+  '/api/admin/products': typeof ApiAdminProductsRouteWithChildren
+  '/api/admin/session': typeof ApiAdminSessionRoute
+  '/api/admin/products/$productId': typeof ApiAdminProductsProductIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
   '/blog': typeof BlogRoute
   '/breakers': typeof BreakersRoute
   '/contact': typeof ContactRoute
@@ -153,14 +227,23 @@ export interface FileRoutesById {
   '/solar-panels': typeof SolarPanelsRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/api/catalog': typeof ApiCatalogRoute
+  '/api/products': typeof ApiProductsRoute
   '/products/$productId': typeof ProductsProductIdRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
+  '/api/admin/account': typeof ApiAdminAccountRoute
+  '/api/admin/catalog': typeof ApiAdminCatalogRoute
+  '/api/admin/password-reset': typeof ApiAdminPasswordResetRoute
+  '/api/admin/products': typeof ApiAdminProductsRouteWithChildren
+  '/api/admin/session': typeof ApiAdminSessionRoute
+  '/api/admin/products/$productId': typeof ApiAdminProductsProductIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/about'
+    | '/admin'
     | '/blog'
     | '/breakers'
     | '/contact'
@@ -172,12 +255,21 @@ export interface FileRouteTypes {
     | '/solar-panels'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/api/catalog'
+    | '/api/products'
     | '/products/$productId'
     | '/.mcp/invoke-tool/$tool'
+    | '/api/admin/account'
+    | '/api/admin/catalog'
+    | '/api/admin/password-reset'
+    | '/api/admin/products'
+    | '/api/admin/session'
+    | '/api/admin/products/$productId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/admin'
     | '/blog'
     | '/breakers'
     | '/contact'
@@ -189,12 +281,21 @@ export interface FileRouteTypes {
     | '/solar-panels'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/api/catalog'
+    | '/api/products'
     | '/products/$productId'
     | '/.mcp/invoke-tool/$tool'
+    | '/api/admin/account'
+    | '/api/admin/catalog'
+    | '/api/admin/password-reset'
+    | '/api/admin/products'
+    | '/api/admin/session'
+    | '/api/admin/products/$productId'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/admin'
     | '/blog'
     | '/breakers'
     | '/contact'
@@ -206,13 +307,22 @@ export interface FileRouteTypes {
     | '/solar-panels'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/api/catalog'
+    | '/api/products'
     | '/products/$productId'
     | '/.mcp/invoke-tool/$tool'
+    | '/api/admin/account'
+    | '/api/admin/catalog'
+    | '/api/admin/password-reset'
+    | '/api/admin/products'
+    | '/api/admin/session'
+    | '/api/admin/products/$productId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AdminRoute: typeof AdminRoute
   BlogRoute: typeof BlogRoute
   BreakersRoute: typeof BreakersRoute
   ContactRoute: typeof ContactRoute
@@ -224,7 +334,14 @@ export interface RootRouteChildren {
   SolarPanelsRoute: typeof SolarPanelsRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  ApiCatalogRoute: typeof ApiCatalogRoute
+  ApiProductsRoute: typeof ApiProductsRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
+  ApiAdminAccountRoute: typeof ApiAdminAccountRoute
+  ApiAdminCatalogRoute: typeof ApiAdminCatalogRoute
+  ApiAdminPasswordResetRoute: typeof ApiAdminPasswordResetRoute
+  ApiAdminProductsRoute: typeof ApiAdminProductsRouteWithChildren
+  ApiAdminSessionRoute: typeof ApiAdminSessionRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -241,6 +358,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog': {
@@ -320,6 +444,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/catalog': {
+      id: '/api/catalog'
+      path: '/api/catalog'
+      fullPath: '/api/catalog'
+      preLoaderRoute: typeof ApiCatalogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/products': {
+      id: '/api/products'
+      path: '/api/products'
+      fullPath: '/api/products'
+      preLoaderRoute: typeof ApiProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/products/$productId': {
       id: '/products/$productId'
       path: '/$productId'
@@ -333,6 +471,48 @@ declare module '@tanstack/react-router' {
       fullPath: '/.mcp/invoke-tool/$tool'
       preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/api/admin/account': {
+      id: '/api/admin/account'
+      path: '/api/admin/account'
+      fullPath: '/api/admin/account'
+      preLoaderRoute: typeof ApiAdminAccountRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/admin/catalog': {
+      id: '/api/admin/catalog'
+      path: '/api/admin/catalog'
+      fullPath: '/api/admin/catalog'
+      preLoaderRoute: typeof ApiAdminCatalogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/admin/password-reset': {
+      id: '/api/admin/password-reset'
+      path: '/api/admin/password-reset'
+      fullPath: '/api/admin/password-reset'
+      preLoaderRoute: typeof ApiAdminPasswordResetRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/admin/products': {
+      id: '/api/admin/products'
+      path: '/api/admin/products'
+      fullPath: '/api/admin/products'
+      preLoaderRoute: typeof ApiAdminProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/admin/session': {
+      id: '/api/admin/session'
+      path: '/api/admin/session'
+      fullPath: '/api/admin/session'
+      preLoaderRoute: typeof ApiAdminSessionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/admin/products/$productId': {
+      id: '/api/admin/products/$productId'
+      path: '/$productId'
+      fullPath: '/api/admin/products/$productId'
+      preLoaderRoute: typeof ApiAdminProductsProductIdRouteImport
+      parentRoute: typeof ApiAdminProductsRoute
     }
   }
 }
@@ -349,9 +529,21 @@ const ProductsRouteWithChildren = ProductsRoute._addFileChildren(
   ProductsRouteChildren,
 )
 
+interface ApiAdminProductsRouteChildren {
+  ApiAdminProductsProductIdRoute: typeof ApiAdminProductsProductIdRoute
+}
+
+const ApiAdminProductsRouteChildren: ApiAdminProductsRouteChildren = {
+  ApiAdminProductsProductIdRoute: ApiAdminProductsProductIdRoute,
+}
+
+const ApiAdminProductsRouteWithChildren =
+  ApiAdminProductsRoute._addFileChildren(ApiAdminProductsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AdminRoute: AdminRoute,
   BlogRoute: BlogRoute,
   BreakersRoute: BreakersRoute,
   ContactRoute: ContactRoute,
@@ -364,7 +556,14 @@ const rootRouteChildren: RootRouteChildren = {
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
+  ApiCatalogRoute: ApiCatalogRoute,
+  ApiProductsRoute: ApiProductsRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
+  ApiAdminAccountRoute: ApiAdminAccountRoute,
+  ApiAdminCatalogRoute: ApiAdminCatalogRoute,
+  ApiAdminPasswordResetRoute: ApiAdminPasswordResetRoute,
+  ApiAdminProductsRoute: ApiAdminProductsRouteWithChildren,
+  ApiAdminSessionRoute: ApiAdminSessionRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

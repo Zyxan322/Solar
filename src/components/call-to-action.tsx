@@ -3,9 +3,12 @@ import { company } from "@/data/site";
 import { Reveal } from "./ui/reveal";
 import { MagneticButton } from "./ui/magnetic-button";
 import { useParallax } from "@/hooks/use-reveal";
+import { usePublicCatalog } from "@/hooks/use-public-catalog";
 
 export function CallToAction() {
   const { ref, offset } = useParallax<HTMLDivElement>(110);
+  const catalog = usePublicCatalog();
+  const phone = catalog?.settings.phone || company.phone;
 
   return (
     <section ref={ref} className="relative isolate overflow-hidden">
@@ -35,8 +38,8 @@ export function CallToAction() {
         <Reveal delay={180}>
           <div className="mt-10 flex flex-wrap justify-center gap-3">
             <MagneticButton href="/contact">Get Started</MagneticButton>
-            <MagneticButton href={company.phoneHref} variant="glass">
-              Call {company.phone}
+            <MagneticButton href={`tel:${phone.replace(/\D/g, "")}`} variant="glass">
+              Call {phone}
             </MagneticButton>
           </div>
         </Reveal>
